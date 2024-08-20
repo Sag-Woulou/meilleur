@@ -1,0 +1,22 @@
+.top-navbar {
+    height: 85px; /* Ajustez cette valeur selon vos besoins */
+    line-height: 50px; /* Aligne verticalement le contenu */
+    padding: 0 15px; /* Espacement interne horizontal */
+    background-image: url("curved14.jpg");
+}
+
+.top-navbar .navbar {
+    padding: 0;
+}
+
+.top-navbar .xp-searchbar {
+    margin-top: 25px; /* Ajustez pour mieux aligner le champ de recherche */
+}
+
+.top-navbar .xp-profilebar {
+    height: 50px; /* Aligne verticalement le contenu dans la barre de profil */
+}
+
+.top-navbar .xp-profilebar .nav-link {
+    line-height: 50px; /* Aligne les éléments de la nav-link */
+}
