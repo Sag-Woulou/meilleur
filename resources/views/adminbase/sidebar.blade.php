@@ -1,6 +1,6 @@
 <div id="sidebar">
     <div class="sidebar-header">
-        <h3><img src="{{ asset('img/logo.png') }}" class="img-fluid"/><span>vishweb design</span></h3>
+        <h3><img src="{{ asset('img/logo.png') }}" class="img-fluid"/><span>Shi'k design</span></h3>
     </div>
     <ul class="list-unstyled component m-0">
         <li class="active">

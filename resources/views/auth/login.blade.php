@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('admin/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('admin/img/favicon.png') }}">
     <title>
-        Soft UI Dashboard by Creative Tim
+        Suivie des doleances
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -39,8 +39,11 @@
                     <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                         <div class="card z-index-0">
                             <div class="card-header text-center pt-4">
-                                <h5>Se connecter</h5>
+                                <h6>
+                                    <img src="{{ asset('img/Logo-site-SONABEL-def.png') }}" class="img-fluid" style="width: 50%; height: auto;"/>
+                                </h6>
                             </div>
+
                             {{--<div class="row px-xl-5 px-sm-4 px-3">
                                 <div class="col-3 ms-auto px-1">
                                     <a class="btn btn-outline-light w-100" href="javascript:;">
@@ -129,7 +132,7 @@
                         <p class="mb-0 text-secondary">
                             Copyright © <script>
                                 document.write(new Date().getFullYear())
-                            </script> Soft by Creative Tim.
+                            </script> Soft by Shi'k Tim.
                         </p>
                     </div>
                 </div>
