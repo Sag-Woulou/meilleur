@@ -21,7 +21,7 @@
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li><a href="{{route('roles.index')}}">Roles</a></li>
                         <li><a href="{{route('permissions.index')}}">Permissions</a></li>
-                        <li><a href="#">layout 3</a></li>
+                        <li><a href="#">Roles & Permissions</a></li>
                     </ul>
                 </li>
 
@@ -29,12 +29,14 @@
                 <li class="dropdown">
                     <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle">
-                        <i class="material-icons">apps</i>widgets
+                        <i class="material-icons">apps</i>Tickets
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                        <li><a href="#">Apps 1</a></li>
-                        <li><a href="#">Apps 2</a></li>
-                        <li><a href="#">Apps 3</a></li>
+                        <li><a href="#">En attente d'intervention</a></li>
+                        <li><a href="#">En cours d'intervention</a></li>
+                        <li><a href="#">En attente du client</a></li>
+                        <li><a href="#">En intervention terminer</a></li>
+                        <li><a href="#">Cloturer</a></li>
                     </ul>
                 </li>
 
