@@ -6,6 +6,11 @@ use App\Http\Controllers\UserController\AuthController;
 use App\Http\Controllers\UserController\PermissionController;
 use App\Http\Controllers\UserController\RoleController;
 use App\Http\Controllers\UserController\UserController;
+use App\Http\Controllers\UserController\RolePermissionController;
+
+
+
+
 
 Route::get('/', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/', [AuthController::class, 'authenticate']);
@@ -16,3 +21,4 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.inde
 Route::put('/users/delete/{user}', [UserController::class, 'updateDeleted'])->name('users.updateDeleted');
 Route::put('/roles/delete/{role}', [RoleController::class, 'updateDeleted'])->name('roles.updateDeleted');
 Route::put('/permissions/delete/{permission}', [PermissionController::class, 'updateDeleted'])->name('permissions.updateDeleted');
+

@@ -161,6 +161,58 @@ $(document).on('click', '#permissionModal', function(event) {
     }
 });
 
+
+$(document).on('click', '#rolePermissionModal', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    var dataType = $this.data('type');
+    $('#uniqueForm')[0].reset();
+    $('#name').prop('disabled', false);
+    $('#description').prop('disabled', false);
+    $('#savebuton').show();
+    $('span.text-danger').html('');
+
+    if (dataType === 1) {
+        $('#userModalTitleLabel').text('Ajouter une liaison entre role et permission');
+        $('#uniqueForm').attr('action', permissionstoreUrl);
+        $('#uniqueForm').attr('method', 'POST');
+        $('#roleModalsow').modal('show');
+        ajaxFormSubmit('uniqueForm', permissionstoreUrl, IndexPermissionsUrl, 'POST');
+        $('#uniqueForm')[0].reset();
+        $('#permissionModal').modal('hide');
+    } else if (dataType === 0) {
+        var roleId = $this.data('id');
+        var name = $this.data('name');
+        var description = $this.data('description');
+        var permissionupdateUrl = permissionupdateUrlBase.replace('ID', roleId);
+        $('#userModalTitleLabel').text('Modifier la permission (ID: ' + roleId + ')');
+        $('#uniqueForm').attr('action', permissionupdateUrl);
+        $('#uniqueForm').attr('method', 'POST');
+        $('#uniqueForm').append('<input type="hidden" name="_method" value="PUT">');
+        $('#name').val(name);
+        $('#description').val(description);
+        $('#roleModalsow').modal('show');
+
+        ajaxFormSubmit('uniqueForm', permissionupdateUrl, IndexPermissionsUrl,'POST');
+
+    }else if (dataType === 3) {
+        var roleId = $this.data('id');
+        var name = $this.data('name');
+        var description = $this.data('description');
+        $('#userModalTitleLabel').text('Permission (ID: ' + roleId + ')');
+        $('#name').val(name);
+        $('#name').prop('disabled', true);
+        $('#description').val(description);
+        $('#description').prop('disabled', true);
+        $('#savebuton').hide();
+        $('#roleModalsow').modal('show');
+    }
+});
+
+
+
+
+
 setupConfirmation('#deleteUserModal', {
     title: 'Êtes-vous sûr de vouloir supprimer cet utilisateur?',
     text: 'Cette action est irréversible.',
@@ -335,3 +387,4 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
