@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\user\Permission;
+use App\Models\user\Role;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class PermissionRole extends Pivot
@@ -17,7 +20,7 @@ class PermissionRole extends Pivot
     /**
      * Définir une relation avec le modèle Permission.
      */
-    public function permission()
+    public function permission(): BelongsTo
     {
         return $this->belongsTo(Permission::class);
     }
@@ -25,7 +28,7 @@ class PermissionRole extends Pivot
     /**
      * Définir une relation avec le modèle Role.
      */
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }

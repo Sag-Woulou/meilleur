@@ -60,8 +60,6 @@
                                        data-description="{{ $role->description }}">
                                         <i class="material-icons" data-toggle="modal" title="Modifier">edit</i>
                                     </a>
-
-
                                     <a href="#" id="deleteRoleModal" class="delete" data-id="{{ $role->id }}" data-toggle="modal">
                                         <i class="material-icons" data-toggle="tooltip" title="Delete">delete_forever</i>
                                     </a>
@@ -80,7 +78,7 @@
 
                 @else
                     <div class="no-users-message text-center">
-                        No users found.
+                        Aucun Utilisateur trouvé.
                     </div>
                 @endif
             </div>

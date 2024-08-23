@@ -2,47 +2,49 @@
 
 namespace App\Http\Controllers\UserController;
 
-use App\Models\Role;
-use App\Models\Permission;
-use App\Http\Requests\UserRequests\RolePermissionStoreRequest;
-use App\Http\Requests\UserRequests\RolePermissionUpdateRequest;
+use App\Models\PermissionRole;
+use App\Models\user\Role;
+use App\Models\user\Permission;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RolePermissionController extends Controller
 {
     /**
-     * Afficher la liste des rôles et permissions.
+     * Afficher la liste des rôles avec leurs permissions.
      *
-     * @return JsonResponse
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index(): JsonResponse
+    public function index(): View|Factory|Application
     {
-        $roles = Role::with('permissions')->get();
+        $roles = Role::with('permissions')->has('permissions')->get();
         $permissions = Permission::all();
 
-        return response()->json([
-            'roles' => $roles,
-            'permissions' => $permissions,
-        ]);
+        return view('admin.rolelier.index', compact('roles', 'permissions'));
     }
 
+
+    public function create(): View|Factory|Application
+    {
+        return view('rolelier.create');
+    }
     /**
-     * Enregistrer un nouveau rôle avec des permissions.
+     * Enregistrer une nouvelle association entre un rôle et des permissions.
      *
-     * @param RolePermissionStoreRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-    public function store(RolePermissionStoreRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
-        $role = Role::create([
-            'name' => $request->name,
-        ]);
-
-        $role->permissions()->attach($request->permissions);
+        $role = Role::findOrFail($request->role);
+        $role->permissions()->sync($request->permissions);
 
         return response()->json([
-            'message' => 'Rôle et permissions créés avec succès.',
+            'message' => 'Permissions associées au rôle avec succès.',
             'role' => $role->load('permissions'),
         ], 201);
     }
@@ -50,100 +52,52 @@ class RolePermissionController extends Controller
     /**
      * Afficher un rôle spécifique avec ses permissions.
      *
-     * @param Role $role
+     * @param int $id
      * @return JsonResponse
      */
-    public function show(Role $role): JsonResponse
+    public function show(int $id): JsonResponse
     {
+        $role = Role::with('permissions')->findOrFail($id);
+
         return response()->json([
-            'role' => $role->load('permissions'),
+            'role' => $role,
         ]);
     }
 
     /**
-     * Mettre à jour un rôle existant avec ses permissions.
+     * Mettre à jour les permissions associées à un rôle existant.
      *
-     * @param RolePermissionUpdateRequest $request
-     * @param Role $role
+     * @param Request $request
+     * @param int $id
      * @return JsonResponse
      */
-    public function update(RolePermissionUpdateRequest $request, Role $role): JsonResponse
+    public function update(Request $request, $id)
     {
-        $role->update([
-            'name' => $request->name,
-        ]);
-
+        $role = Role::findOrFail($id);
         $role->permissions()->sync($request->permissions);
 
         return response()->json([
-            'message' => 'Rôle et permissions mis à jour avec succès.',
+            'message' => 'Permissions mises à jour avec succès.',
             'role' => $role->load('permissions'),
         ]);
     }
 
+
     /**
-     * Supprimer un rôle et dissocier ses permissions.
+     * Supprimer un rôle et dissocier toutes ses permissions.
      *
-     * @param Role $role
+     * @param int $roleId
      * @return JsonResponse
      */
-    public function destroy(Role $role): JsonResponse
+    public function destroy(int $roleId): JsonResponse
     {
+        $role = Role::findOrFail($roleId);
         $role->permissions()->detach();
         $role->delete();
 
         return response()->json([
-            'message' => 'Rôle supprimé avec succès.',
-        ]);
-    }
-
-    /**
-     * Lister toutes les permissions disponibles.
-     *
-     * @return JsonResponse
-     */
-    public function listPermissions(): JsonResponse
-    {
-        $permissions = Permission::all();
-
-        return response()->json([
-            'permissions' => $permissions,
-        ]);
-    }
-
-    /**
-     * Ajouter une nouvelle permission.
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function addPermission(Request $request): JsonResponse
-    {
-        $validated = $request->validate([
-            'name' => 'required|unique:permissions|max:255',
-            'description' => 'nullable|string',
+            'message' => 'Rôle et permissions supprimés avec succès.',
         ]);
 
-        $permission = Permission::create($validated);
-
-        return response()->json([
-            'message' => 'Permission ajoutée avec succès.',
-            'permission' => $permission,
-        ], 201);
-    }
-
-    /**
-     * Supprimer une permission.
-     *
-     * @param Permission $permission
-     * @return JsonResponse
-     */
-    public function deletePermission(Permission $permission): JsonResponse
-    {
-        $permission->delete();
-
-        return response()->json([
-            'message' => 'Permission supprimée avec succès.',
-        ]);
     }
 }
