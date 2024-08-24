@@ -7,6 +7,10 @@ use App\Models\user\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * @method static create(mixed $validatedData)
+ * @method static where(string $string, int $roleId)
+ */
 class PermissionRole extends Pivot
 {
     protected $table = 'permission_role';

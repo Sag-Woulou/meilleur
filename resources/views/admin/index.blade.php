@@ -34,6 +34,7 @@
                             <th>Email</th>
                             <th>Username</th>
                             <th>Details</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -50,6 +51,8 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->other_user_details }}</td>
+                                <td>{{ $roles->firstWhere('id', $user->role_id)->name }}</td>
+
                                 <th class="action-buttons">
                                     <a href="#" id="userModal" class="view" data-toggle="modal" data-type="3"
                                        data-id="{{ $user->id }}"
@@ -57,7 +60,7 @@
                                        data-prenom="{{ $user->prenom }}"
                                        data-username="{{ $user->username }}"
                                        data-email="{{ $user->email }}"
-                                       data-roleid="{{ $user->roles  }}"
+                                       data-roleid="{{ $user->role_id  }}"
                                        data-other_user_details="{{ $user->other_user_details }}">
                                         <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
                                     </a>
@@ -70,7 +73,7 @@
                                        data-prenom="{{ $user->prenom }}"
                                        data-username="{{ $user->username }}"
                                        data-email="{{ $user->email }}"
-                                       data-role_id="{{ $user->role }}"
+                                       data-roleid="{{ $user->role_id }}"
 
                                        data-other_user_details="{{ $user->other_user_details }}">
                                         <i class="material-icons" data-toggle="modal" title="Modifier">edit</i>

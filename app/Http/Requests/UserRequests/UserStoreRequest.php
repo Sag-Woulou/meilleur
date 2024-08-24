@@ -29,6 +29,7 @@ class UserStoreRequest extends FormRequest
             'other_user_details' => 'nullable|string',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role_id' => 'required|integer|exists:roles,id',
 
         ];
     }
@@ -62,6 +63,9 @@ class UserStoreRequest extends FormRequest
             'password.string' => 'Le champ mot de passe doit être une chaîne de caractères.',
             'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
             'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
+
+            'role_id.exists' => 'Le rôle sélectionné est invalide.',
+            'role_id.required' => 'Le champ nom est obligatoire.',
         ];
     }
 

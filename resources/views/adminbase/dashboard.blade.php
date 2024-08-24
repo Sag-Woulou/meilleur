@@ -22,7 +22,6 @@
                         <li><a href="{{ route('roles.index') }}">Roles</a></li>
                         <li><a href="{{ route('permissions.index') }}">Permissions</a></li>
                         <li><a href="{{route('rolelier.index')}}">Roles & Permissions</a></li>
-                        <li><a href="#">Utilisateurs & Roles</a></li>
                     </ul>
                 </li>
 

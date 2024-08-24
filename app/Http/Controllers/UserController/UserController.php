@@ -24,7 +24,7 @@ class UserController extends Controller
 {
     public function index(): View|Factory|Application
     {
-        $users = User::where('deleted', false)->paginate(10);
+        $users = User::with('roles')->where('deleted', false)->paginate(10);
         $roles = Role::with('permissions')->has('permissions')->get();
         return view('admin.index', compact('users', 'roles'));
     }
@@ -35,16 +35,13 @@ class UserController extends Controller
         return view('users.create');
     }
 
-    public function store(UserStoreRequest $userRequest, UserRoleStoreRequest $roleRequest): JsonResponse
+    public function store(UserStoreRequest $userRequest): JsonResponse
     {
         DB::beginTransaction();
         try {
             $validatedUserData = $userRequest->validated();
             $validatedUserData['password'] = Hash::make($validatedUserData['password']);
             $user = User::create($validatedUserData);
-            $validatedRoleData = $roleRequest->validated();
-            $validatedRoleData['user_id'] = $user->id;
-            UserRole::create($validatedRoleData);
             DB::commit();
             return response()->json(['message' => 'Utilisateur et rôle créés avec succès', 'user_id' => $user->id], 201);
         } catch (\Exception $e) {

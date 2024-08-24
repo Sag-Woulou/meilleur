@@ -43,10 +43,25 @@ class RolePermissionController extends Controller
     public function store(RolePermissionStoreRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
-        PermissionRole::create($validatedData);
+        $roleId = $validatedData['role_id'];
+        $permissionIds = $validatedData['permission_id'];
+        if (is_array($permissionIds)) {
+            foreach ($permissionIds as $permissionId) {
+                PermissionRole::updateOrCreate(
+                    ['role_id' => $roleId, 'permission_id' => $permissionId],
+                    ['updated_at' => now(), 'created_at' => now()]
+                );
+            }
+        } else {
+            PermissionRole::updateOrCreate(
+                ['role_id' => $roleId, 'permission_id' => $permissionIds],
+                ['updated_at' => now(), 'created_at' => now()]
+            );
+        }
 
         return response()->json(['message' => 'Permissions associées au rôle avec succès.'], 201);
     }
+
 
     /**
      * Afficher un rôle spécifique avec ses permissions.
@@ -70,15 +85,22 @@ class RolePermissionController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(RolePermissionStoreRequest $request, $roleId): JsonResponse
     {
-        $role = Role::findOrFail($id);
-        $role->permissions()->sync($request->permissions);
+        $validatedData = $request->validated();
+        $permissionIds = $validatedData['permission_id'];
+        if (!is_array($permissionIds)) {
+            return response()->json(['error' => 'Invalid permissions data.'], 400);
+        }
+        PermissionRole::where('role_id', $roleId)->delete();
+        foreach ($permissionIds as $permissionId) {
+            PermissionRole::updateOrCreate(
+                ['role_id' => $roleId, 'permission_id' => $permissionId],
+                ['updated_at' => now(), 'created_at' => now()]
+            );
+        }
 
-        return response()->json([
-            'message' => 'Permissions mises à jour avec succès.',
-            'role' => $role->load('permissions'),
-        ]);
+        return response()->json(['message' => 'Permissions mises à jour avec succès.'], 200);
     }
 
 
@@ -88,15 +110,14 @@ class RolePermissionController extends Controller
      * @param int $roleId
      * @return JsonResponse
      */
-    public function destroy(int $roleId): JsonResponse
+    public function destroy(Role $role): JsonResponse
     {
-        $role = Role::findOrFail($roleId);
-        $role->permissions()->detach();
-        $role->delete();
+        $deleted = PermissionRole::where('role_id', $role->id)->delete();
 
-        return response()->json([
-            'message' => 'Rôle et permissions supprimés avec succès.',
-        ]);
-
+        if ($deleted) {
+            return response()->json(['message' => 'Relation supprimée avec succès.'], 200);
+        } else {
+            return response()->json(['error' => 'Relation non trouvée.'], 404);
+        }
     }
 }

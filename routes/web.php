@@ -22,5 +22,5 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.inde
 Route::put('/users/delete/{user}', [UserController::class, 'updateDeleted'])->name('users.updateDeleted');
 Route::put('/roles/delete/{role}', [RoleController::class, 'updateDeleted'])->name('roles.updateDeleted');
 Route::put('/permissions/delete/{permission}', [PermissionController::class, 'updateDeleted'])->name('permissions.updateDeleted');
-Route::delete('rolelier/deleted/{rolePermission}', [RolePermissionController::class, 'destroy'])->name('rolelier.updateDeleted');
+Route::delete('rolelier/deleted/{role}', [RolePermissionController::class, 'destroy'])->name('rolelier.updateDeleted');
 

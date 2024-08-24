@@ -4,6 +4,7 @@ namespace App\Models\user;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static findOrFail(int $id)
  * @method static where(string $string, false $false)
  * @method static create(mixed $validatedData)
+ * @property mixed $role
  */
 class User extends Authenticatable
 {
@@ -31,6 +33,7 @@ class User extends Authenticatable
         'email',
         'password',
         'other_user_details',
+        'role_id'
     ];
 
     /**
@@ -55,8 +58,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function roles(): BelongsToMany
+
+    public function roles(): BelongsTo
     {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+        return $this->belongsTo(Role::class);
     }
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'permission_role', 'role_id', 'permission_id');
+    }
+
 }

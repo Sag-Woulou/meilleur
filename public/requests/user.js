@@ -170,8 +170,8 @@ $(document).on('click', '#relieRoleModal', function(event) {
     var $this = $(this);
     var dataType = $this.data('type');
     $('#rolePermissionForm')[0].reset();
-    $('#role').prop('disabled', false);
-    $('#permissions').prop('disabled', false);
+    $('#role_id').prop('disabled', false);
+    $('#permission_id').prop('disabled', false);
     $('#savebuton').show();
     $('span.text-danger').html('');
 
@@ -186,13 +186,14 @@ $(document).on('click', '#relieRoleModal', function(event) {
     } else if (dataType === 0) {
         var roleId = $this.data('id');
         var permissions = $this.data('permissions');
+        console.log('permissions',permissions.id);
         var roleupdateUrl = rolepermissionupdateUrlBase.replace('ID', roleId);
         $('#relieRolePermissionModalTitleLabel').text('Modifier lien rôle-Permission (ID: ' + roleId + ')');
         $('#rolePermissionForm').attr('action', roleupdateUrl);
         $('#rolePermissionForm').attr('method', 'POST');
         $('#rolePermissionForm').append('<input type="hidden" name="_method" value="PUT">');
-        $('#role').val(roleId);
-        $('#permissions').val(permissions);
+        $('#role_id').val(roleId);
+        $('#permission_id').val(permissions);
         $('#relieRolePermissionModal').modal('show');
 
         ajaxFormSubmit('rolePermissionForm', roleupdateUrl, IndexRolePermissionUrl,'POST');
@@ -200,10 +201,10 @@ $(document).on('click', '#relieRoleModal', function(event) {
         var roleId = $this.data('id');
         var permissions = $this.data('permissions');
         $('#relieRolePermissionModalTitleLabel').text('Lien rôle-Permission (ID: ' + roleId + ')');
-        $('#role').val(roleId);
-        $('#role').prop('disabled', true);
-        $('#permissions').val(permissions);
-        $('#permissions').prop('disabled', true);
+        $('#role_id').val(roleId);
+        $('#role_id').prop('disabled', true);
+        $('#permission_id').val(permissions);
+        $('#permission_id').prop('disabled', true);
         $('#savebuton').hide();
         $('#relieRolePermissionModal').modal('show');
     }

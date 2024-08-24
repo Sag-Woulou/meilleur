@@ -56,7 +56,7 @@
     var permissionlisteUrl = "{{ route('admin.index') }}";
     var IndexRolePermissionUrl = "{{ route('rolelier.index') }}";
     var rolepermissionstoreUrl = "{{ route('rolelier.store') }}";  // Utilisation correcte de la route pour le stockage
-    var rolepermissiondeleteUrlBase = "{{ route('rolelier.updateDeleted', ['rolePermission' => 'ID']) }}";
+    var rolepermissiondeleteUrlBase = "{{ route('rolelier.updateDeleted', ['role' => 'ID']) }}";
     var rolepermissionupdateUrlBase = "{{ route('rolelier.update', ['rolelier' => 'ID']) }}";
 
 </script>
