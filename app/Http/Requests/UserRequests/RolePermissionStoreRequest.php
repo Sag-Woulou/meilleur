@@ -24,8 +24,8 @@ class RolePermissionStoreRequest extends FormRequest
     {
         return [
             'role_id' => 'required|exists:roles,id',
-            'permission_ids' => 'required|array',
-            'permission_ids.*' => 'exists:permissions,id',
+            'permission_id' => 'required|array',
+            'permission_id.*' => 'exists:permissions,id',
         ];
     }
 
@@ -34,9 +34,9 @@ class RolePermissionStoreRequest extends FormRequest
         return [
             'role_id.required' => 'Le champ rôle est obligatoire.',
             'role_id.exists' => 'Le rôle sélectionné est invalide.',
-            'permission_ids.required' => 'Au moins une permission est requise.',
-            'permission_ids.array' => 'Les permissions doivent être un tableau.',
-            'permission_ids.*.exists' => 'L\'ID de permission sélectionné est invalide.',
+            'permission_id.required' => 'Au moins une permission est requise.',
+            'permission_id.array' => 'Les permissions doivent être un tableau.',
+            'permission_id.*.exists' => 'L\'ID de permission sélectionné est invalide.',
         ];
     }
 }

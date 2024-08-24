@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\UserController;
 
+use App\Http\Requests\UserRequests\RolePermissionStoreRequest;
 use App\Models\PermissionRole;
 use App\Models\user\Role;
 use App\Models\user\Permission;
@@ -23,8 +24,9 @@ class RolePermissionController extends Controller
     {
         $roles = Role::with('permissions')->has('permissions')->get();
         $permissions = Permission::all();
+        $allRoles =Role::all();
 
-        return view('admin.rolelier.index', compact('roles', 'permissions'));
+        return view('admin.rolelier.index', compact('roles', 'permissions','allRoles'));
     }
 
 
@@ -38,15 +40,12 @@ class RolePermissionController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(RolePermissionStoreRequest $request): JsonResponse
     {
-        $role = Role::findOrFail($request->role);
-        $role->permissions()->sync($request->permissions);
+        $validatedData = $request->validated();
+        PermissionRole::create($validatedData);
 
-        return response()->json([
-            'message' => 'Permissions associées au rôle avec succès.',
-            'role' => $role->load('permissions'),
-        ], 201);
+        return response()->json(['message' => 'Permissions associées au rôle avec succès.'], 201);
     }
 
     /**

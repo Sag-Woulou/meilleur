@@ -57,9 +57,12 @@
                                        data-prenom="{{ $user->prenom }}"
                                        data-username="{{ $user->username }}"
                                        data-email="{{ $user->email }}"
+                                       data-roleid="{{ $user->roles  }}"
                                        data-other_user_details="{{ $user->other_user_details }}">
                                         <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
                                     </a>
+
+
                                     <a href="#" class="userModal" id="userModal"
                                        data-type="0"
                                        data-id="{{ $user->id }}"
@@ -67,6 +70,8 @@
                                        data-prenom="{{ $user->prenom }}"
                                        data-username="{{ $user->username }}"
                                        data-email="{{ $user->email }}"
+                                       data-role_id="{{ $user->role }}"
+
                                        data-other_user_details="{{ $user->other_user_details }}">
                                         <i class="material-icons" data-toggle="modal" title="Modifier">edit</i>
                                     </a>

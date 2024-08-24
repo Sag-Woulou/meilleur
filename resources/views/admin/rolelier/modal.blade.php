@@ -11,19 +11,19 @@
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="role">Rôle</label>
-                        <select id="role" name="role" class="form-control">
+                        <label for="role_id">Rôle</label>
+                        <select id="role_id" name="role_id" class="form-control">
                             <option value="">Sélectionnez un rôle</option>
-                            @foreach($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @foreach($allRoles as $allRole)
+                                <option value="{{ $allRole->id }}">{{ $allRole->name }}</option>
                             @endforeach
                         </select>
                         <span class="text-danger" id="error-role"></span>
                     </div>
                     <!-- Sélection des Permissions avec cases à cocher utilisant Bootstrap Select -->
                     <div class="form-group">
-                        <label for="permissions">Permissions</label>
-                        <select id="permissions" name="permissions[]" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true">
+                        <label for="permission_id">Permissions</label>
+                        <select id="permission_id" name="permission_id[]" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true">
                             @foreach($permissions as $permission)
                                 <option value="{{ $permission->id }}">{{ $permission->name }}</option>
                             @endforeach

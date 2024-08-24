@@ -7,10 +7,11 @@ $(document).on('click', '#userModal', function(event) {
     $('#prenom').prop('disabled', false);
     $('#username').prop('disabled', false);
     $('#email').prop('disabled', false);
+    $('#role_id').prop('disabled', false);
     $('#other_user_details').prop('disabled', false);
     $('span.text-danger').html('');
-    $('#passwordGroup').show();
-    $('#passwordConfirmationGroup').show();
+    $('#password').show();
+    $('#password_confirmation').show();
 
     if (dataType === 1) {
         $('#userModalTitleLabel').text('Ajouter un Employé');
@@ -26,6 +27,8 @@ $(document).on('click', '#userModal', function(event) {
         var userFirstName = $this.data('prenom');
         var userUsername = $this.data('username');
         var userEmail = $this.data('email');
+        var roleid = $this.data('roleid');
+        console.log('role_id',roleid);
         var userDetails = $this.data('other_user_details');
         var updateUrl = updateUrlBase.replace('ID', userId);
         $('#userModalTitleLabel').text('Modifier l\'Employé (ID: ' + userId + ')');
@@ -36,9 +39,9 @@ $(document).on('click', '#userModal', function(event) {
         $('#prenom').val(userFirstName);
         $('#username').val(userUsername);
         $('#email').val(userEmail);
+        $('#role_id').val(roleid);
         $('#other_user_details').val(userDetails);
-        $('#passwordGroup').hide();
-        $('#passwordConfirmationGroup').hide();
+        $('#passwordContent').hide();
         $('#addUserModal').modal('show');
 
         ajaxFormSubmit('uniqueForm', updateUrl, indexUserUrl,'POST');
@@ -49,6 +52,7 @@ $(document).on('click', '#userModal', function(event) {
         var userFirstName = $this.data('prenom');
         var userUsername = $this.data('username');
         var userEmail = $this.data('email');
+        var roleid = $this.data('roleid');
         var userDetails = $this.data('other_user_details');
         $('#userModalTitleLabel').text('Employé (ID: ' + userId + ')');
         $('#nom').val(userName);
@@ -59,10 +63,11 @@ $(document).on('click', '#userModal', function(event) {
         $('#username').prop('disabled', true);
         $('#email').val(userEmail);
         $('#email').prop('disabled', true);
+        $('#role_id').val(roleid);
+        $('#role_id').prop('disabled', true);
         $('#other_user_details').val(userDetails);
         $('#other_user_details').prop('disabled', true);
-        $('#passwordGroup').hide();
-        $('#passwordConfirmationGroup').hide();
+        $('#passwordContent').hide();
         $('#savebuton').hide();
         $('#addUserModal').modal('show');
     }

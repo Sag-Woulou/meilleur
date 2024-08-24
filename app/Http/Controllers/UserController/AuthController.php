@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequests\LoginRequest;
+use App\Models\user\Role;
 use App\Models\user\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,8 +21,10 @@ class AuthController extends Controller
 
     public function dashboard(): View|Factory|Application
     {
-        $users = User::where('deleted', false)->paginate(10);
-        return view('admin.index', compact('users'));
+
+        $users = User::with('roles')->where('deleted', false)->paginate(10);
+        $roles = Role::with('permissions')->has('permissions')->get();
+        return view('admin.index', compact('users', 'roles'));
     }
     public function authenticate(LoginRequest $request): RedirectResponse
     {

@@ -25,6 +25,9 @@
                         <table class="table table-responsive-xxl table-striped table-hover">
                             <thead class="table-header">
                             <tr>
+                                <th> <span class="custom-checkbox">
+                                    <input type="checkbox" id="selectAll">
+                                    <label for="selectAll"></label></th>
                                 <th>ID</th>
                                 <th>Nom du Rôle</th>
                                 <th>Permissions</th>
@@ -34,6 +37,11 @@
                             <tbody class="tab-content" id="tab-content">
                             @foreach($roles as $role)
                                 <tr>
+                                    <th>
+                                    <span class="custom-checkbox">
+							        <input type="checkbox" id="checkbox{{ $role->id }}" name="option[]" value="{{ $role->id }}">
+							        <label for="checkbox{{ $role->id }}"></label>
+                                    </th>
                                     <td>{{ $role->id }}</td>
                                     <td>{{ $role->name }}</td>
                                     <td>
