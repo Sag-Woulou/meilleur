@@ -16,50 +16,41 @@
                 <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle">
-                        <i class="material-icons">aspect_ratio</i>Roles
+                        <i class="material-icons">group</i> Affectations
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-                        <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                        <li><a href="{{ route('permissions.index') }}">Permissions</a></li>
-                        <li><a href="{{route('rolelier.index')}}">Roles & Permissions</a></li>
+                        <li><a href="#">Zone & utilisateur</a></li>
+                        <li><a href="#">Service & utilisateur</a></li>
                     </ul>
                 </li>
-
 
                 <li class="dropdown">
                     <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle">
-                        <i class="material-icons">description</i> Tickets
+                        <i class="material-icons">aspect_ratio</i>Permissions
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                        <li><a href="#">En attente d'intervention</a></li>
-                        <li><a href="#">En cours d'intervention</a></li>
-                        <li><a href="#">En attente du client</a></li>
-                        <li><a href="#">En intervention terminer</a></li>
-                        <li><a href="#">Cloturer</a></li>
+                        <li><a href="{{ route('roles.index') }}">Roles</a></li>
+                        <li><a href="{{ route('permissions.index') }}">Permissions</a></li>
+                        <li><a href="{{route('rolelier.index')}}">Roles & Permissions</a></li>
+                        <li><a href="{{route('services.index')}}">Services</a></li>
                     </ul>
                 </li>
+
 
                 <li class="dropdown">
                     <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle">
-                        <i class="material-icons">apps</i>Services
+                        <i class="material-icons">description</i> Tickets
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-                        <li><a href="#">Services</a></li>
+                        <li><a href="#">En attente d'intervention</a></li>
+                        <li><a href="#">En cours d'intervention</a></li>
+                        <li><a href="#">En attente du client</a></li>
+                        <li><a href="#">intervention terminer</a></li>
+                        <li><a href="#">Cloturer</a></li>
+                        <li><a href="#">Mes ticket Traiter</a></li>
                         <li><a href="#">Transferts</a></li>
-                    </ul>
-                </li>
-
-
-                <li class="dropdown">
-                    <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false"
-                       class="dropdown-toggle">
-                        <i class="material-icons">person</i> Comptes
-                    </a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu4">
-                        <li><a href="#">Mot de passe</a></li>
-                        <li><a href="#">Ticket Traiter</a></li>
                     </ul>
                 </li>
             </ul>
@@ -128,11 +119,11 @@
                                                         Profile
                                                     </a></li>
                                                 <li><a href="#">
-                                                        <span class="material-icons">settings</span>
+                                                        <span class="material-icons">Parametre</span>
                                                         Settings
                                                     </a></li>
                                                 <li><a href="#">
-                                                        <span class="material-icons">logout</span>
+                                                        <span class="material-icons">Deconnexion</span>
                                                         Logout
                                                     </a></li>
 

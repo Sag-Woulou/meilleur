@@ -72,7 +72,6 @@ $(document).on('click', '#userModal', function(event) {
         $('#addUserModal').modal('show');
     }
 });
-
 $(document).on('click', '#roleModal', function(event) {
     event.preventDefault();
     var $this = $(this);
@@ -118,7 +117,6 @@ $(document).on('click', '#roleModal', function(event) {
         $('#roleModalsow').modal('show');
     }
 });
-
 $(document).on('click', '#permissionModal', function(event) {
     event.preventDefault();
     var $this = $(this);
@@ -210,6 +208,55 @@ $(document).on('click', '#relieRoleModal', function(event) {
     }
 });
 
+
+
+$(document).on('click', '#serviceModal', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    var dataType = $this.data('type');
+    $('#serviceForm')[0].reset();
+    $('#name').prop('disabled', false);
+    $('#description').prop('disabled', false);
+    $('#savebuton').show();
+    $('span.text-danger').html('');
+    if (dataType === 1) {
+        $('#serviceModalTitleLabel').text('Ajouter un service');
+        $('#serviceForm').attr('action', servicestoreUrl);
+        $('#serviceForm').attr('method', 'POST');
+        $('#serviceModalsow').modal('show');
+        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl,'POST');
+        $('#serviceForm')[0].reset();
+        $('#serviceModal').modal('hide');
+    } else if (dataType === 0) {
+        var serviceId = $this.data('id');
+        var name = $this.data('nom');
+        var description = $this.data('description');
+        var serviceupdateUrl = serviceupdateUrlBase.replace('ID', serviceId);
+        $('#serviceModalTitleLabel').text('Modifier le service (ID: ' + serviceId + ')');
+        $('#serviceForm').attr('action', serviceupdateUrl);
+        $('#serviceForm').attr('method', 'POST');
+        $('#serviceForm').append('<input type="hidden" name="_method" value="PUT">');
+        $('#nom').val(name);
+        $('#description').val(description);
+        $('#serviceModalsow').modal('show');
+        ajaxFormSubmit('serviceForm', serviceupdateUrl, indexServicesUrl,'POST');
+    }else if (dataType === 3) {
+        var serviceId = $this.data('id');
+        var name = $this.data('nom');
+        var description = $this.data('description');
+        $('#serviceModalTitleLabel').text('Service (ID: ' + serviceId + ')');
+        $('#nom').val(name);
+        $('#nom').prop('disabled', true);
+        $('#description').val(description);
+        $('#description').prop('disabled', true);
+        $('#savebuton').hide();
+        $('#serviceModalsow').modal('show');
+    }
+});
+
+
+
+
 setupConfirmation('#deletelienRolePermission', {
     title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
     text: 'Cette action est irréversible.',
@@ -263,6 +310,22 @@ setupConfirmation('#deletePermissionModal', {
     console.log('permission supprimé avec ID:', roleId);
 
 },permissiondeleteUrlBase, IndexPermissionsUrl,'PUT');
+
+
+setupConfirmation('#deleteServiceModal', {
+    title: 'Êtes-vous sûr de vouloir supprimer ce service?',
+    text: 'Cette action est irréversible.',
+    icon: 'warning',
+    confirmButtonText: 'Oui, supprimer!',
+    cancelButtonText: 'Annuler',
+    successTitle: 'Supprimé!',
+    successText: 'Le service a été supprimé.'
+}, function() {
+    var serviceId = $('#deleteServiceModal').data('id');
+    console.log('service supprimé avec ID:', serviceId);
+
+},servicedeleteUrlBase, indexServicesUrl,'DELETE');
+
 
 
 

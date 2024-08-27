@@ -54,10 +54,19 @@
     var permissionupdateUrlBase = "{{ route('permissions.update', ['permission' => 'ID']) }}";
     var permissiondeleteUrlBase = "{{ route('permissions.updateDeleted', ['permission' => 'ID']) }}";
     var permissionlisteUrl = "{{ route('admin.index') }}";
+
+
     var IndexRolePermissionUrl = "{{ route('rolelier.index') }}";
     var rolepermissionstoreUrl = "{{ route('rolelier.store') }}";  // Utilisation correcte de la route pour le stockage
     var rolepermissiondeleteUrlBase = "{{ route('rolelier.updateDeleted', ['role' => 'ID']) }}";
     var rolepermissionupdateUrlBase = "{{ route('rolelier.update', ['rolelier' => 'ID']) }}";
+
+
+    var indexServicesUrl = "{{ route('services.index') }}";
+    var servicestoreUrl = "{{ route('services.store') }}";
+    var serviceupdateUrlBase = "{{ route('services.update', ['service' => 'ID']) }}";
+    var servicedeleteUrlBase = "{{ route('services.updateDeleted', ['service' => 'ID']) }}";
+    var servicelisteUrl = "{{ route('admin.index') }}";
 
 </script>
 <script type="module" src="{{ asset('requests/user.js') }}"></script>
