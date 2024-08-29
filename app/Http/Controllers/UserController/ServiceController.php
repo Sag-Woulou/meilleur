@@ -5,13 +5,11 @@ namespace App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequests\ServiceStoreRequest;
 use App\Http\Requests\UserRequests\ServiceUpdateRequest;
-use App\Models\Service;
+use App\Models\user\Service;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
@@ -33,17 +31,20 @@ class ServiceController extends Controller
         return response()->json(['message' => 'Service crée avec succès']);
     }
 
+    public function update(ServiceUpdateRequest $request, Service $service): JsonResponse
+    {
+        $validatedData = $request->validated();
+        $service->update($validatedData);
+        return response()->json(['message' => 'Service mis à jour avec succès']);
+    }
+
+
     public function edit(Service $service): View|Factory|Application
     {
         return view('services.edit', compact('service'));
     }
 
-    public function update(ServiceUpdateRequest $request, Service $service): JsonResponse
-    {
-        $validatedData = $request->validated();
-        $service->update($validatedData);
-        return response()->json(['message' => 'Service mise à jour avec succès']);
-    }
+
 
     public function destroy( Service $service): JsonResponse
     {

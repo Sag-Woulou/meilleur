@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static where(string $string, false $false)
  * @method static create(mixed $validatedData)
  * @property mixed $role
+ * @property mixed $id
  */
 class User extends Authenticatable
 {
@@ -66,6 +67,11 @@ class User extends Authenticatable
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'permission_role', 'role_id', 'permission_id');
+    }
+
+    public function services(): BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, 'service_user', 'user_id', 'service_id');
     }
 
 }

@@ -68,6 +68,12 @@
     var servicedeleteUrlBase = "{{ route('services.updateDeleted', ['service' => 'ID']) }}";
     var servicelisteUrl = "{{ route('admin.index') }}";
 
+
+    var indexUserServicesUrl = "{{ route('userservice.index') }}";
+    var userservicestoreUrl = "{{ route('userservice.store') }}";
+    var userserviceupdateUrlBase = "{{ route('userservice.update', ['userservice' => 'ID']) }}";
+    var userservicedeleteUrlBase = "{{ route('userservice.updateDeleted', ['user' => 'ID']) }}";
+
 </script>
 <script type="module" src="{{ asset('requests/user.js') }}"></script>
 </body>

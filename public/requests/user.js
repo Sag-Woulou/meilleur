@@ -207,9 +207,6 @@ $(document).on('click', '#relieRoleModal', function(event) {
         $('#relieRolePermissionModal').modal('show');
     }
 });
-
-
-
 $(document).on('click', '#serviceModal', function(event) {
     event.preventDefault();
     var $this = $(this);
@@ -219,19 +216,22 @@ $(document).on('click', '#serviceModal', function(event) {
     $('#description').prop('disabled', false);
     $('#savebuton').show();
     $('span.text-danger').html('');
+
     if (dataType === 1) {
+        // Ajouter un service
         $('#serviceModalTitleLabel').text('Ajouter un service');
         $('#serviceForm').attr('action', servicestoreUrl);
         $('#serviceForm').attr('method', 'POST');
+        $('#serviceForm').find('input[name="_method"]').remove(); // Assurer qu'il n'y a pas de méthode PUT résiduelle
         $('#serviceModalsow').modal('show');
-        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl,'POST');
-        $('#serviceForm')[0].reset();
-        $('#serviceModal').modal('hide');
+        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl, 'POST');
     } else if (dataType === 0) {
+        // Modifier un service
         var serviceId = $this.data('id');
-        var name = $this.data('nom');
+        var name = $this.data('name');
         var description = $this.data('description');
         var serviceupdateUrl = serviceupdateUrlBase.replace('ID', serviceId);
+
         $('#serviceModalTitleLabel').text('Modifier le service (ID: ' + serviceId + ')');
         $('#serviceForm').attr('action', serviceupdateUrl);
         $('#serviceForm').attr('method', 'POST');
@@ -239,11 +239,13 @@ $(document).on('click', '#serviceModal', function(event) {
         $('#nom').val(name);
         $('#description').val(description);
         $('#serviceModalsow').modal('show');
-        ajaxFormSubmit('serviceForm', serviceupdateUrl, indexServicesUrl,'POST');
-    }else if (dataType === 3) {
+        ajaxFormSubmit('serviceForm', serviceupdateUrl, indexServicesUrl, 'POST');
+    } else if (dataType === 3) {
+        // Voir les détails du service
         var serviceId = $this.data('id');
-        var name = $this.data('nom');
+        var name = $this.data('name');
         var description = $this.data('description');
+
         $('#serviceModalTitleLabel').text('Service (ID: ' + serviceId + ')');
         $('#nom').val(name);
         $('#nom').prop('disabled', true);
@@ -253,6 +255,121 @@ $(document).on('click', '#serviceModal', function(event) {
         $('#serviceModalsow').modal('show');
     }
 });
+
+
+
+
+
+$(document).on('click', '#serviceModal', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    var dataType = $this.data('type');
+    var serviceId = $this.data('id');
+    var name = $this.data('name');
+    var description = $this.data('description');
+
+    $('#serviceForm')[0].reset();
+    $('#name').prop('disabled', false);
+    $('#description').prop('disabled', false);
+    $('#savebuton').show();
+    $('span.text-danger').html('');
+
+    if (dataType === 1) {
+        $('#serviceModalTitleLabel').text('Ajouter un service');
+        $('#serviceForm').attr('action', servicestoreUrl);
+        $('#serviceForm').attr('method', 'POST');
+        $('#serviceModalsow').modal('show');
+        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl,'POST');
+        $('#serviceForm')[0].reset();
+        $('#serviceModal').modal('hide');
+    } else if (dataType === 0) {
+        var serviceupdateUrl = serviceupdateUrlBase.replace('ID', serviceId);
+        $('#serviceModalTitleLabel').text('Modifier le service (ID: ' + serviceId + ')');
+        $('#serviceForm').attr('action', serviceupdateUrl);
+        $('#serviceForm').attr('method', 'POST');
+        $('#serviceForm').append('<input type="hidden" name="_method" value="PUT">');
+        $('#nom').val(name);
+        $('#description').val(description);
+        $('#serviceModalsow').modal('show');
+    } else if (dataType === 3) {
+        $('#serviceModalTitleLabel').text('Service (ID: ' + serviceId + ')');
+        $('#nom').val(name).prop('disabled', true);
+        $('#description').val(description).prop('disabled', true);
+        $('#savebuton').hide();
+        $('#serviceModalsow').modal('show');
+    }
+});
+
+
+
+$(document).on('click', '#relieUserModal', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    var dataType = $this.data('type');
+
+    // Reset du formulaire et réinitialisation des éléments de formulaire
+    $('#userServiceForm')[0].reset();
+    $('#user_id').prop('disabled', false);
+    $('#service_id').prop('disabled', false);
+    $('#savebuton').show();
+    $('span.text-danger').html('');
+
+    if (dataType === 1) {
+        // Cas pour ajouter un lien utilisateur-service
+        $('#relieUserServiceModalTitleLabel').text('Ajouter lien utilisateur-Service');
+        $('#userServiceForm').attr('action', userservicestoreUrl);
+        $('#userServiceForm').attr('method', 'POST');
+        $('#relieUserServiceModal').modal('show');
+
+        // Soumission du formulaire via AJAX avec POST
+        ajaxFormSubmit('userServiceForm', userservicestoreUrl, indexUserServicesUrl, 'POST');
+
+        $('#userServiceForm')[0].reset();
+        $('#relieUserServiceModal').modal('hide');
+    } else if (dataType === 0) {
+        // Cas pour modifier un lien utilisateur-service existant
+        var userId = $this.data('id');
+        var services = $this.data('services');
+        var userupdateUrl = userserviceupdateUrlBase.replace('ID', userId);
+
+        $('#relieUserServiceModalTitleLabel').text('Modifier lien utilisateur-Service (ID: ' + userId + ')');
+        $('#userServiceForm').attr('action', userupdateUrl);
+        $('#userServiceForm').attr('method', 'POST');
+        $('#userServiceForm').append('<input type="hidden" name="_method" value="PUT">'); // Utiliser PUT pour la mise à jour
+        $('#user_id').val(userId);
+        $('#service_id').val(services).change();
+        $('#relieUserServiceModal').modal('show');
+
+        // Soumission du formulaire via AJAX avec PUT déguisé en POST
+        ajaxFormSubmit('userServiceForm', userupdateUrl, indexUserServicesUrl, 'POST');
+    } else if (dataType === 3) {
+        // Cas pour afficher les détails du lien utilisateur-service sans possibilité de modification
+        var userId = $this.data('id');
+        var services = $this.data('services');
+
+        $('#relieUserServiceModalTitleLabel').text('Lien utilisateur-Service (ID: ' + userId + ')');
+        $('#user_id').val(userId);
+        $('#user_id').prop('disabled', true);
+        $('#service_id').val(services).prop('disabled', true).change();
+        $('#savebuton').hide();
+        $('#relieUserServiceModal').modal('show');
+    }
+});
+
+setupConfirmation(
+    '#deleteLienUserService',
+    {
+        title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
+        text: 'Cette action est irréversible.',
+        icon: 'warning',
+        confirmButtonText: 'Oui, supprimer!',
+        cancelButtonText: 'Annuler',
+        successTitle: 'Supprimé!',
+        successText: 'Le lien a été supprimé.'
+    },
+    function() {
+    }, userservicedeleteUrlBase, indexUserServicesUrl, 'DELETE'
+);
 
 
 
@@ -329,10 +446,16 @@ setupConfirmation('#deleteServiceModal', {
 
 
 
+
+
+
+
 function ajaxFormSubmit(formId, url, url_, method = 'POST') {
     let $form = $('#' + formId);
     let csrfToken = $('meta[name="csrf-token"]').attr('content');
-    $form.on('submit', function(e) {
+
+    // Assurez-vous que l'événement submit n'est attaché qu'une seule fois
+    $form.off('submit').on('submit', function(e) {
         e.preventDefault();
         $('span.text-danger').html('');
         let formData = $form.serialize() + `&_token=${csrfToken}`;
@@ -358,7 +481,6 @@ function ajaxFormSubmit(formId, url, url_, method = 'POST') {
                     });
                 } else {
                     toastr.error('Une erreur est survenue. Veuillez réessayer plus tard.');
-
                 }
             },
             complete: function() {
@@ -367,7 +489,6 @@ function ajaxFormSubmit(formId, url, url_, method = 'POST') {
         });
     });
 }
-
 
 
 

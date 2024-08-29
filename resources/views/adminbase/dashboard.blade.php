@@ -20,7 +20,7 @@
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li><a href="#">Zone & utilisateur</a></li>
-                        <li><a href="#">Service & utilisateur</a></li>
+                        <li><a href="{{route('userservice.index')}}">Service & utilisateur</a></li>
                     </ul>
                 </li>
 

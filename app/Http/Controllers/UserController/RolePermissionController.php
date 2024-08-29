@@ -23,8 +23,8 @@ class RolePermissionController extends Controller
     public function index(): View|Factory|Application
     {
         $roles = Role::with('permissions')->has('permissions')->get();
-        $permissions = Permission::all();
-        $allRoles =Role::all();
+        $permissions = Permission::where('deleted', 0)->get();
+        $allRoles = Role::where('deleted', 0)->get();
 
         return view('admin.rolelier.index', compact('roles', 'permissions','allRoles'));
     }
