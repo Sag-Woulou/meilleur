@@ -19,7 +19,7 @@
                         <i class="material-icons">group</i> Affectations
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-                        <li><a href="#">Zone & utilisateur</a></li>
+                        <li><a href="{{route('usercentre.index')}}">Zone & utilisateur</a></li>
                         <li><a href="{{route('userservice.index')}}">Service & utilisateur</a></li>
                     </ul>
                 </li>
@@ -101,13 +101,6 @@
                                                 <li><a href="#">You Have 4 New Messages</a></li>
                                             </ul>
                                         </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="material-icons">question_answer</span>
-                                            </a>
-                                        </li>
-
                                         <li class="dropdown nav-item">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
                                                 <img src="img/user.jpg" style="width:40px; border-radius:50%;"/>
@@ -119,12 +112,12 @@
                                                         Profile
                                                     </a></li>
                                                 <li><a href="#">
-                                                        <span class="material-icons">Parametre</span>
-                                                        Settings
+                                                        <span class="material-icons">settings</span>
+                                                        Paramettre
                                                     </a></li>
                                                 <li><a href="#">
-                                                        <span class="material-icons">Deconnexion</span>
-                                                        Logout
+                                                        <span class="material-icons">logout</span>
+                                                        Deconnexion
                                                     </a></li>
 
                                             </ul>

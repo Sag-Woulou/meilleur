@@ -74,4 +74,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Service::class, 'service_user', 'user_id', 'service_id');
     }
 
+
+    public function centreDistribs(): BelongsToMany
+    {
+        return $this->belongsToMany(CentreDistrib::class, 'centre_user', 'user_id', 'centre_distrib_id')->withPivot('id');
+    }
+
 }

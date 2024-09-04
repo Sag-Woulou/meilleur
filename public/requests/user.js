@@ -211,59 +211,6 @@ $(document).on('click', '#serviceModal', function(event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
-    $('#serviceForm')[0].reset();
-    $('#name').prop('disabled', false);
-    $('#description').prop('disabled', false);
-    $('#savebuton').show();
-    $('span.text-danger').html('');
-
-    if (dataType === 1) {
-        // Ajouter un service
-        $('#serviceModalTitleLabel').text('Ajouter un service');
-        $('#serviceForm').attr('action', servicestoreUrl);
-        $('#serviceForm').attr('method', 'POST');
-        $('#serviceForm').find('input[name="_method"]').remove(); // Assurer qu'il n'y a pas de méthode PUT résiduelle
-        $('#serviceModalsow').modal('show');
-        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl, 'POST');
-    } else if (dataType === 0) {
-        // Modifier un service
-        var serviceId = $this.data('id');
-        var name = $this.data('name');
-        var description = $this.data('description');
-        var serviceupdateUrl = serviceupdateUrlBase.replace('ID', serviceId);
-
-        $('#serviceModalTitleLabel').text('Modifier le service (ID: ' + serviceId + ')');
-        $('#serviceForm').attr('action', serviceupdateUrl);
-        $('#serviceForm').attr('method', 'POST');
-        $('#serviceForm').append('<input type="hidden" name="_method" value="PUT">');
-        $('#nom').val(name);
-        $('#description').val(description);
-        $('#serviceModalsow').modal('show');
-        ajaxFormSubmit('serviceForm', serviceupdateUrl, indexServicesUrl, 'POST');
-    } else if (dataType === 3) {
-        // Voir les détails du service
-        var serviceId = $this.data('id');
-        var name = $this.data('name');
-        var description = $this.data('description');
-
-        $('#serviceModalTitleLabel').text('Service (ID: ' + serviceId + ')');
-        $('#nom').val(name);
-        $('#nom').prop('disabled', true);
-        $('#description').val(description);
-        $('#description').prop('disabled', true);
-        $('#savebuton').hide();
-        $('#serviceModalsow').modal('show');
-    }
-});
-
-
-
-
-
-$(document).on('click', '#serviceModal', function(event) {
-    event.preventDefault();
-    var $this = $(this);
-    var dataType = $this.data('type');
     var serviceId = $this.data('id');
     var name = $this.data('name');
     var description = $this.data('description');
@@ -299,9 +246,6 @@ $(document).on('click', '#serviceModal', function(event) {
         $('#serviceModalsow').modal('show');
     }
 });
-
-
-
 $(document).on('click', '#relieUserModal', function(event) {
     event.preventDefault();
     var $this = $(this);
@@ -356,6 +300,75 @@ $(document).on('click', '#relieUserModal', function(event) {
     }
 });
 
+
+
+
+$(document).on('click', '#usercentreModal', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    var dataType = $this.data('type');
+    $('#userCentreForm')[0].reset();
+    $('#user_id').prop('disabled', false);
+    $('#centre_distrib_ids').prop('disabled', false);
+    $('#savebutton').show();
+    $('span.text-danger').html('');
+
+    if (dataType === 1) {
+        $('#associerCentreModalTitleLabel').text('Associer Utilisateur et Centres de Distribution');
+        $('#userCentreForm').attr('action', userCentrestoreUrl);
+        $('#userCentreForm').attr('method', 'POST');
+        $('#associerCentreModal').modal('show');
+        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl,'POST');;
+        $('#userCentreForm')[0].reset();
+        $('#associerCentreModal').modal('hide');
+    } else if (dataType === 0) {
+        var id = $this.data('id');
+        var userId = $this.data('user_id');
+        var centreDistribIds = $this.data('centre_distrib_ids');
+        console.log('centreDistribIds',centreDistribIds);
+        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id);
+        $('#associerCentreModalTitleLabel').text('Modifier lien rôle-Permission (ID: ' + id + ')');
+        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl);
+        $('#userCentreForm').attr('method', 'POST');
+        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">');
+        $('#user_id').val(userId);
+        $('#centre_distrib_ids').val(centreDistribIds);
+        $('#associerCentreModal').modal('show');
+
+        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexServicesUrl,'POST');
+    }else if (dataType === 3) {
+        var id = $this.data('id');
+        var userId = $this.data('user_id');
+        var centreDistribIds = $this.data('centre_distrib_ids');
+        $('#relieRolePermissionModalTitleLabel').text('Lien rôle-Permission (ID: ' + id + ')');
+        $('#user_id').val(userId);
+        $('#user_id').prop('disabled', true);
+        $('#centre_distrib_ids').val(centreDistribIds);
+        $('#centre_distrib_ids').prop('disabled', true);
+        $('#savebutton').hide();
+        $('#associerCentreModal').modal('show');
+    }
+});
+
+
+
+
+
+
+
+setupConfirmation('#deleteUsercentreModal', {
+    title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
+    text: 'Cette action est irréversible.',
+    icon: 'warning',
+    confirmButtonText: 'Oui, supprimer!',
+    cancelButtonText: 'Annuler',
+    successTitle: 'Supprimé!',
+    successText: 'Le lien a été supprimé.'
+}, function() {
+}, userCentredeleteUrlBase, indexUserCentresUrl, 'DELETE');
+
+
+
 setupConfirmation(
     '#deleteLienUserService',
     {
@@ -370,10 +383,6 @@ setupConfirmation(
     function() {
     }, userservicedeleteUrlBase, indexUserServicesUrl, 'DELETE'
 );
-
-
-
-
 setupConfirmation('#deletelienRolePermission', {
     title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
     text: 'Cette action est irréversible.',

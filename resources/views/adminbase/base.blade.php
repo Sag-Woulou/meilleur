@@ -74,6 +74,11 @@
     var userserviceupdateUrlBase = "{{ route('userservice.update', ['userservice' => 'ID']) }}";
     var userservicedeleteUrlBase = "{{ route('userservice.updateDeleted', ['user' => 'ID']) }}";
 
+    var indexUserCentresUrl = "{{ route('usercentre.index') }}";
+    var userCentrestoreUrl = "{{ route('usercentre.store') }}";
+    var userCentreupdateUrlBase = "{{ route('usercentre.update', ['usercentre' => 'ID']) }}";
+    var userCentredeleteUrlBase = "{{ route('usercentre.updateDeleted', ['user' => 'ID']) }}";
+
 </script>
 <script type="module" src="{{ asset('requests/user.js') }}"></script>
 </body>

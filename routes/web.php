@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController\UserCentreDistribController;
 use App\Http\Controllers\UserController\UserServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::resource('permissions', PermissionController::class);
 Route::resource('rolelier', RolePermissionController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('userservice', UserServiceController::class);
+Route::resource('usercentre', UserCentreDistribController::class);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.index');
 Route::put('/users/delete/{user}', [UserController::class, 'updateDeleted'])->name('users.updateDeleted');
 Route::put('/roles/delete/{role}', [RoleController::class, 'updateDeleted'])->name('roles.updateDeleted');
@@ -29,6 +31,7 @@ Route::put('/permissions/delete/{permission}', [PermissionController::class, 'up
 Route::delete('rolelier/deleted/{role}', [RolePermissionController::class, 'destroy'])->name('rolelier.updateDeleted');
 Route::delete('services/deleted/{service}', [ServiceController::class, 'destroy'])->name('services.updateDeleted');
 Route::delete('userservice/deleted/{user}',[UserServiceController::class, 'destroy'])->name('userservice.updateDeleted');
+Route::delete('usercentre/deleted/{user}',[UserCentreDistribController::class, 'destroy'])->name('usercentre.updateDeleted');
 
 
 
