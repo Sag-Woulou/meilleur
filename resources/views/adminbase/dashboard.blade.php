@@ -6,7 +6,7 @@
         <!-- Sidebar -->
         <div id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="{{ asset('img/Logo-site-SONABEL-def.png') }}" class="img-fluid"/><span>Suivie </span></h3>
+                <h3><img src="{{ asset('img/Logo-site-SONABEL-def.png') }}" class="img-fluid"/><span>GES-TICKET </span></h3>
             </div>
             <ul class="list-unstyled component m-0">
                 <li class="active">
@@ -44,11 +44,11 @@
                         <i class="material-icons">description</i> Tickets
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-                        <li><a href="#">En attente d'intervention</a></li>
-                        <li><a href="#">En cours d'intervention</a></li>
-                        <li><a href="#">En attente du client</a></li>
-                        <li><a href="#">intervention terminer</a></li>
-                        <li><a href="#">Cloturer</a></li>
+                        <li><a href="{{route('traiterticket.index')}}">En attente d'intervention</a></li>
+                        <li><a href="{{route('ticketouvert.index')}}">En cours d'intervention</a></li>
+                        <li><a href="{{route('attenteclient.index')}}">En attente du client</a></li>
+                        <li><a href="{{route('ticketterminer.index')}}">intervention terminer</a></li>
+                        <li><a href="{{route('ticketcloturer.index')}}">Cloturer</a></li>
                         <li><a href="#">Mes ticket Traiter</a></li>
                         <li><a href="#">Transferts</a></li>
                     </ul>

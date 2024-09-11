@@ -52,7 +52,7 @@ $.cleanData = ( function( orig ) {
 					$( elem ).triggerHandler( "remove" );
 				}
 
-			// Http://bugs.jquery.com/ticket/8235
+			// Http://bugs.jquery.com/ticketcloturer/8235
 			} catch ( e ) {}
 		}
 		orig( elems );
@@ -2373,7 +2373,7 @@ $.widget( "ui.draggable", $.ui.mouse, {
 				o.appendTo ) );
 		}
 
-		// Http://bugs.jqueryui.com/ticket/9446
+		// Http://bugs.jqueryui.com/ticketcloturer/9446
 		// a helper function can return the original element
 		// which wouldn't have been set to relative in _create
 		if ( helperIsFunction && helper[ 0 ] === this.element[ 0 ] ) {
@@ -2654,7 +2654,7 @@ $.widget( "ui.draggable", $.ui.mouse, {
 			if ( o.grid ) {
 
 				//Check for grid elements set to 0 to prevent divide by 0 error causing invalid
-				// argument errors in IE (see ticket #6950)
+				// argument errors in IE (see ticketcloturer #6950)
 				top = o.grid[ 1 ] ? this.originalPageY + Math.round( ( pageY -
 					this.originalPageY ) / o.grid[ 1 ] ) * o.grid[ 1 ] : this.originalPageY;
 				pageY = containment ? ( ( top - this.offset.click.top >= containment[ 1 ] ||
@@ -9785,7 +9785,7 @@ $.extend( Datepicker.prototype, {
 		this._autoSize( inst );
 		$.data( target, "datepicker", inst );
 
-		//If disabled option is true, disable the datepicker once it has been attached to the input (see ticket #5665)
+		//If disabled option is true, disable the datepicker once it has been attached to the input (see ticketcloturer #5665)
 		if ( inst.settings.disabled ) {
 			this._disableDatepicker( target );
 		}
@@ -9879,7 +9879,7 @@ $.extend( Datepicker.prototype, {
 		this._updateDatepicker( inst );
 		this._updateAlternate( inst );
 
-		//If disabled option is true, disable the datepicker before showing it (see ticket #5665)
+		//If disabled option is true, disable the datepicker before showing it (see ticketcloturer #5665)
 		if ( inst.settings.disabled ) {
 			this._disableDatepicker( target );
 		}

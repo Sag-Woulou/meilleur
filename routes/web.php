@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\TicketController\AttenteClientController;
+use App\Http\Controllers\TicketController\CloturerTicketController;
+use App\Http\Controllers\TicketController\InterTermController;
+use App\Http\Controllers\TicketController\TicketOuvertController;
+use App\Http\Controllers\TicketController\TraiterTicketController;
 use App\Http\Controllers\UserController\UserCentreDistribController;
 use App\Http\Controllers\UserController\UserServiceController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +29,11 @@ Route::resource('rolelier', RolePermissionController::class);
 Route::resource('services', ServiceController::class);
 Route::resource('userservice', UserServiceController::class);
 Route::resource('usercentre', UserCentreDistribController::class);
+Route::resource('ticketcloturer', CloturerTicketController::class);
+Route::resource('traiterticket', TraiterTicketController::class);
+Route::resource('ticketouvert', TicketOuvertController::class);
+Route::resource('ticketterminer', InterTermController::class);
+Route::resource('attenteclient', AttenteClientController::class);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.index');
 Route::put('/users/delete/{user}', [UserController::class, 'updateDeleted'])->name('users.updateDeleted');
 Route::put('/roles/delete/{role}', [RoleController::class, 'updateDeleted'])->name('roles.updateDeleted');
