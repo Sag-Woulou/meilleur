@@ -79,6 +79,8 @@
     var userCentreupdateUrlBase = "{{ route('usercentre.update', ['usercentre' => 'ID']) }}";
     var userCentredeleteUrlBase = "{{ route('usercentre.updateDeleted', ['user' => 'ID']) }}";
 
+    var indexTransfertUrl="{{route('transferticket.index')}}";
+    var updateTicketUrl = "{{ route('transferticket.updatedTicket', ['transferticket' => 'ID']) }}";
 </script>
 <script type="module" src="{{ asset('requests/user.js') }}"></script>
 </body>

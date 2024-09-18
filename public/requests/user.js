@@ -299,10 +299,6 @@ $(document).on('click', '#relieUserModal', function(event) {
         $('#relieUserServiceModal').modal('show');
     }
 });
-
-
-
-
 $(document).on('click', '#usercentreModal', function(event) {
     event.preventDefault();
     var $this = $(this);
@@ -350,11 +346,25 @@ $(document).on('click', '#usercentreModal', function(event) {
     }
 });
 
+$(document).on('click', '#transfertTicketModal', function(event) {
+    console.log(true);
+    event.preventDefault();
+    var $this = $(this);
+    var id = $this.data('id');
+    var service_id = $this.data('service_id');
+    console.log("service_id",service_id);
+    var updateTicketUrlUrlBaseUrl = updateTicketUrl.replace('ID', id);
+    $('#transfertModalForm').attr('action', updateTicketUrlUrlBaseUrl);
+    $('#transfertModalForm').attr('method', 'POST');
+    $('#transfertModalForm').append('<input type="hidden" name="_method" value="PUT">');
+    $('#service_id').val(service_id);
+    $('#transfertModal').modal('show');
 
+    var newservice_id = $('#service_id').val();
+    console.log("newservice_id",newservice_id);
+    ajaxFormSubmit('transfertModalForm',updateTicketUrlUrlBaseUrl,indexTransfertUrl,'POST')
 
-
-
-
+});
 
 setupConfirmation('#deleteUsercentreModal', {
     title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static paginate(int $int)
+ * @method static findOrFail(mixed $input)
  */
 class Service extends Model
 {
@@ -21,5 +22,10 @@ class Service extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'service_user','service_id','user_id');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'service_id', 'id');
     }
 }

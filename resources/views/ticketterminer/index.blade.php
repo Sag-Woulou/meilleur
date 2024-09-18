@@ -12,7 +12,6 @@
                             </div>
                         </div>
                     </div>
-
                     @if($matchingTickets->count() > 0)
                         <table class="table table-responsive-xxl table-striped table-hover">
                             <thead class="table-header">
@@ -28,21 +27,14 @@
                             <tbody>
                             @foreach ($matchingTickets as $ticket)
                                 <tr>
-                                    {{-- Formatage du numéro de ticket --}}
                                     @php
-                                        // Compléter avec des zéros à gauche si nécessaire
                                         $ticketNumber = str_pad($ticket->TicketId, 9, '0', STR_PAD_LEFT);
-                                        // Formater en 000-000-000 sur une seule ligne
                                         $formattedTicketNumber = substr($ticketNumber, 0, 3) . '-' . substr($ticketNumber, 3, 3) . '-' . substr($ticketNumber, 6);
                                     @endphp
-
                                     <td>{{ $formattedTicketNumber }}</td>
                                     <td>{{ $ticket->CreationDatetime }}</td>
                                     <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
-
-                                    {{-- Affichage naturel du numéro de téléphone --}}
                                     <td>{{ $ticket->NumeroAppelant }}</td>
-
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
                                 </tr>

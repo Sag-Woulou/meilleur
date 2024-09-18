@@ -50,7 +50,7 @@
                         <li><a href="{{route('ticketterminer.index')}}">intervention terminer</a></li>
                         <li><a href="{{route('ticketcloturer.index')}}">Cloturer</a></li>
                         <li><a href="#">Mes ticket Traiter</a></li>
-                        <li><a href="#">Transferts</a></li>
+                        <li><a href="{{route('transferticket.index')}}">Transfers</a></li>
                     </ul>
                 </li>
             </ul>

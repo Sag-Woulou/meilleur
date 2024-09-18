@@ -5,6 +5,7 @@ use App\Http\Controllers\TicketController\CloturerTicketController;
 use App\Http\Controllers\TicketController\InterTermController;
 use App\Http\Controllers\TicketController\TicketOuvertController;
 use App\Http\Controllers\TicketController\TraiterTicketController;
+use App\Http\Controllers\TicketController\TransfertController;
 use App\Http\Controllers\UserController\UserCentreDistribController;
 use App\Http\Controllers\UserController\UserServiceController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::resource('traiterticket', TraiterTicketController::class);
 Route::resource('ticketouvert', TicketOuvertController::class);
 Route::resource('ticketterminer', InterTermController::class);
 Route::resource('attenteclient', AttenteClientController::class);
+Route::resource('transferticket',TransfertController::class);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.index');
 Route::put('/users/delete/{user}', [UserController::class, 'updateDeleted'])->name('users.updateDeleted');
 Route::put('/roles/delete/{role}', [RoleController::class, 'updateDeleted'])->name('roles.updateDeleted');
@@ -42,6 +44,9 @@ Route::delete('rolelier/deleted/{role}', [RolePermissionController::class, 'dest
 Route::delete('services/deleted/{service}', [ServiceController::class, 'destroy'])->name('services.updateDeleted');
 Route::delete('userservice/deleted/{user}',[UserServiceController::class, 'destroy'])->name('userservice.updateDeleted');
 Route::delete('usercentre/deleted/{user}',[UserCentreDistribController::class, 'destroy'])->name('usercentre.updateDeleted');
+Route::put('transferticket/{transferticket}', [TransfertController::class, 'update'])->name('transferticket.updatedTicket');;
+
+
 
 
 
