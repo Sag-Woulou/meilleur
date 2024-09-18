@@ -18,7 +18,7 @@
                                 <th>Numero du Ticket</th>
                                 <th>Date de Création</th>
                                 <th>Numéro d'Abonné</th>
-                                <th>Numéro d'Appelant</th>
+                                <th>Service</th> <!-- Changement ici -->
                                 <th>Type de Panne</th>
                                 <th>Niveau d'Urgence</th>
                                 <th>Actions</th>
@@ -29,18 +29,17 @@
                                 <tr>
                                     @php
                                         $ticketNumber = str_pad($ticket->TicketId, 9, '0', STR_PAD_LEFT);
-
                                     @endphp
 
                                     <td>{{  substr($ticketNumber, 0, 3) . '-' . substr($ticketNumber, 3, 3) . '-' . substr($ticketNumber, 6) }}</td>
-                                    <td>{{ $ticket->CreationDatetime }}</td>
+                                    <td>{{ explode('.', $ticket->CreationDatetime)[0] }}</td>
                                     <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
-                                    <td>{{ $ticket->NumeroAppelant }}</td>
+                                    <td>{{ $ticket->service }}</td>
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
                                     <th class="action-buttons">
-                                        <a href="#"  id="transfertTicketModal" data-id="{{ $ticket->TicketId }}" data-service_id="{{ $ticket->service_id }}">
-                                            <i class= "material-icons" data-toggle="modal" title="Modifier">edit</i>
+                                        <a href="#" id="transfertTicketModal" data-id="{{ $ticket->TicketId }}" data-service_id="{{ $ticket->service_id }}">
+                                            <i class="material-icons" data-toggle="modal" title="Modifier">edit</i>
                                         </a>
                                     </th>
                                 </tr>

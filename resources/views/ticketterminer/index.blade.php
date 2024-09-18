@@ -32,7 +32,7 @@
                                         $formattedTicketNumber = substr($ticketNumber, 0, 3) . '-' . substr($ticketNumber, 3, 3) . '-' . substr($ticketNumber, 6);
                                     @endphp
                                     <td>{{ $formattedTicketNumber }}</td>
-                                    <td>{{ $ticket->CreationDatetime }}</td>
+                                    <td>{{ explode('.', $ticket->CreationDatetime)[0] }}</td>
                                     <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
                                     <td>{{ $ticket->NumeroAppelant }}</td>
                                     <td>{{ $ticket->typePanne }}</td>

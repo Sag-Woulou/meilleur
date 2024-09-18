@@ -25,23 +25,26 @@ class TransfertController extends Controller
             ->leftJoin('commentaireTickets', function($join) {
                 $join->on('tickets.TicketId', '=', 'commentaireTickets.TicketId')
                     ->whereRaw('commentaireTickets.CreationDatetime = (
-                        select max(ct.CreationDatetime)
-                        from commentaireTickets ct
-                        where ct.TicketId = tickets.TicketId
-                    )');
+                select max(ct.CreationDatetime)
+                from commentaireTickets ct
+                where ct.TicketId = tickets.TicketId
+            )');
             })
             ->leftJoin('statutTicket', 'commentaireTickets.StatutTicketId', '=', 'statutTicket.StatutTicketId')
             ->leftJoin('urgence', 'tickets.UrgenceId', '=', 'urgence.UrgenceId')
             ->leftJoin('typePanne', 'tickets.typePanneId', '=', 'typePanne.typePanneId')
+            ->leftJoin('services', 'tickets.service_id', '=', 'services.id') // Ajouter le join avec la table services
             ->select('tickets.TicketId', 'tickets.service_id', 'abonnes.Exploitation', 'abonnes.Section',
                 'abonnes.Lot', 'abonnes.Parcelle', 'abonnes.Rang', 'tickets.CreationDatetime',
-                'tickets.NumeroAppelant', 'typePanne.typePanne', 'urgence.NiveauUrgence', 'statutTicket.statutTicket')
+                'tickets.NumeroAppelant', 'typePanne.typePanne', 'urgence.NiveauUrgence', 'statutTicket.statutTicket',
+                'services.nom as service') // Sélection du nom du service
             ->where('commentaireTickets.StatutTicketId', 2)
             ->groupBy('tickets.TicketId', 'tickets.service_id', 'abonnes.Exploitation', 'abonnes.Section',
                 'abonnes.Lot', 'abonnes.Parcelle', 'abonnes.Rang', 'tickets.CreationDatetime',
-                'tickets.NumeroAppelant', 'typePanne.typePanne', 'urgence.NiveauUrgence', 'statutTicket.statutTicket')
+                'tickets.NumeroAppelant', 'typePanne.typePanne', 'urgence.NiveauUrgence', 'statutTicket.statutTicket', 'services.nom')
             ->orderBy('tickets.TicketId', 'asc')
             ->get();
+
 
         return view('transferticket.index', ['matchingTickets' => $tickets, 'services' => $services]);
     }

@@ -37,7 +37,7 @@
                                     @endphp
 
                                     <td>{{ $formattedTicketNumber }}</td>
-                                    <td>{{ $ticket->CreationDatetime }}</td>
+                                    <td>{{ explode('.', $ticket->CreationDatetime)[0] }}</td>
                                     <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
 
                                     {{-- Affichage naturel du numéro de téléphone --}}
