@@ -345,7 +345,6 @@ $(document).on('click', '#usercentreModal', function(event) {
         $('#associerCentreModal').modal('show');
     }
 });
-
 $(document).on('click', '#transfertTicketModal', function(event) {
     console.log(true);
     event.preventDefault();
@@ -365,6 +364,201 @@ $(document).on('click', '#transfertTicketModal', function(event) {
     ajaxFormSubmit('transfertModalForm',updateTicketUrlUrlBaseUrl,indexTransfertUrl,'POST')
 
 });
+function showTicketDetails(ticketId) {
+    if (!ticketId) {
+        console.error('ID du ticket non défini');
+        return;
+    }
+    resetModalContent();
+
+    $.ajax({
+        url: `/traiterticket/${ticketId}`,
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            console.log('Réponse du serveur : ', response);
+
+            // Remplir les détails du ticket
+            $('#ticketId').text(response.TicketId || 'Non défini');
+            $('#ticketDescription').text(response.Description || 'Non défini');
+            $('#ticketCreationDatetime').text(response.CreationDatetime || 'Non défini');
+            $('#ticketNumeroAppelant').text(response.NumeroAppelant || 'Non défini');
+            $('#ticketRue').text(response.Rue || 'Non défini');
+            $('#ticketQuartier').text(response.Quartier || 'Non défini');
+            $('#ticketIndicationPrecise').text(response.IndicationPrecise || 'Non défini');
+
+            // Remplir les détails de l'abonné
+            $('#abonneNom').text(response.NomAbonne || 'Non défini');
+            $('#abonnePrenom').text(response.PrenomAbonne || 'Non défini');
+            $('#abonnePolice').text(response.Police || 'Non défini');
+            $('#abonneCle').text(response.Cle || 'Non défini');
+            $('#abonneNumeroCompteur').text(response.NumeroCompteur || 'Non défini');
+            $('#abonneTypeCompteur').text(response.TypeCompteur || 'Non défini');
+            $('#abonneEtatClient').text(response.EtatClient || 'Non défini');
+            $('#abonneDateEtat').text(response.DateEtat || 'Non défini');
+            $('#abonneQuartier').text(response.QuartierAbonne || 'Non défini');
+            $('#abonneTel').text(response.TelAbonne || 'Non défini');
+
+            // Dernier commentaire
+            if (response.DernierCommentaire) {
+                $('#commentaireDetails').html(`
+                    <div>
+                        <strong>Agent:</strong> ${response.DernierCommentaire.AgentName || 'Non défini'}<br>
+                        <strong>Description:</strong> ${response.DernierCommentaire.Description || 'Non défini'}<br>
+                        <strong>Date de Création:</strong> ${response.DernierCommentaire.CreationDatetime || 'Non défini'}<br>
+                    </div>
+                    <hr>
+                `);
+            } else {
+                $('#commentaireDetails').html('<p>Aucun commentaire disponible.</p>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erreur lors de la récupération des détails du ticket :', xhr.responseText);
+            $('#ticketError').html(`
+                <div class="alert alert-danger" role="alert">
+                    Impossible de charger les détails du ticket. Veuillez réessayer.
+                </div>
+            `);
+        }
+    });
+}
+function resetModalContent() {
+    $('#ticketId').text('');
+    $('#ticketDescription').text('');
+    $('#ticketNumeroAppelant').text('');
+    $('#indicationPrecise').text('');
+    $('#quartier').text('');
+
+    $('#abonneNom').text('');
+    $('#abonnePrenom').text('');
+    $('#police').text('');
+    $('#numeroCompteur').text('');
+    $('#etatClient').text('');
+    $('#dateEtat').text('');
+    $('#quartierAbonne').text('');
+    $('#telAbonne').text('');
+
+    $('#commentaireDetails').html('');
+}
+$(document).on('click', '#ticketDetailsModal', function(event) {
+    event.preventDefault();
+    $('#ticketDetailsModalwee').modal('show');
+    var ticketId = $(this).data('id');
+    showTicketDetails(ticketId);
+});
+$(document).on('click', '#dismissButton', function (event){
+    event.preventDefault();
+    reloadTable_(indexTraiterticketUrl);
+    $('#ticketDetailsModalwee').hide();
+});
+
+function showTicketDetails1(ticketId) {
+    if (!ticketId) {
+        console.error('ID du ticket non défini');
+        return;
+    }
+    resetModalContent();
+
+    $.ajax({
+        url: `/traiterticket/${ticketId}`,
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            console.log('Réponse du serveur : ', response);
+
+            // Remplir les détails du ticket
+            $('#ticketId1').text(response.TicketId || 'Non défini');
+            $('#ticketDescription1').text(response.Description || 'Non défini');
+            $('#ticketCreationDatetime1').text(response.CreationDatetime || 'Non défini');
+            $('#ticketNumeroAppelant1').text(response.NumeroAppelant || 'Non défini');
+            $('#ticketRue1').text(response.Rue || 'Non défini');
+            $('#ticketQuartier').text(response.Quartier || 'Non défini');
+            $('#ticketIndicationPrecise1').text(response.IndicationPrecise || 'Non défini');
+
+            // Remplir les détails de l'a1bonné
+            $('#abonneNom1').text(response.NomAbonne || 'Non défini');
+            $('#abonnePrenom1').text(response.PrenomAbonne || 'Non défini');
+            $('#abonnePolice1').text(response.Police || 'Non défini');
+            $('#abonneCle1').text(response.Cle || 'Non défini');
+            $('#abonneNumeroCompteur1').text(response.NumeroCompteur || 'Non défini');
+            $('#abonneTypeCompteur1').text(response.TypeCompteur || 'Non défini');
+            $('#abonneEtatClient1').text(response.EtatClient || 'Non défini');
+            $('#abonneDateEtat1').text(response.DateEtat || 'Non défini');
+            $('#abonneQuartier1').text(response.QuartierAbonne || 'Non défini');
+            $('#abonneTel1').text(response.TelAbonne || 'Non défini');
+
+            // Dernier commentaire
+            if (response.DernierCommentaire) {
+                $('#commentaireDetails1').html(`
+                    <div>
+                        <strong>Agent:</strong> ${response.DernierCommentaire.AgentName || 'Non défini'}<br>
+                        <strong>Description:</strong> ${response.DernierCommentaire.Description || 'Non défini'}<br>
+                        <strong>Date de Création:</strong> ${response.DernierCommentaire.CreationDatetime || 'Non défini'}<br>
+                    </div>
+                    <hr>
+                `);
+            } else {
+                $('#commentaireDetails1').html('<p>Aucun commentaire disponible.</p>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erreur lors de la récupération des détails du ticket :', xhr.responseText);
+            $('#ticketError').html(`
+                <div class="alert alert-danger" role="alert">
+                    Impossible de charger les détails du ticket. Veuillez réessayer.
+                </div>
+            `);
+        }
+    });
+}
+
+
+function resetModalContent1() {
+    $('#ticketId1').text('');
+    $('#ticketDescription1').text('');
+    $('#ticketNumeroAppelant1').text('');
+    $('#indicationPrecise1').text('');
+    $('#quartier1').text('');
+
+    $('#abonneNom1').text('');
+    $('#abonnePrenom1').text('');
+    $('#police1').text('');
+    $('#numeroCompteur1').text('');
+    $('#etatClient1').text('');
+    $('#dateEtat1').text('');
+    $('#quartierAbonne1').text('');
+    $('#telAbonne1').text('');
+
+    $('#commentaireDetails1').html('');
+}
+$(document).on('click', '#ticketDetailsModal1', function(event) {
+    event.preventDefault();
+
+    $('#ticketDetailsModalwee12').modal('show');
+    var ticketId = $(this).data('id');
+    showTicketDetails1(ticketId);
+    reloadTable_(indexTraiterticketUrl);
+});
+$(document).on('click', '#dismissButton1', function (event){
+    event.preventDefault();
+    reloadTable_(indexticketcloturerUrl);
+
+});
+
+$(document).on('click', '#traiterButton2', function (event){
+    event.preventDefault();
+    $('#ticketDetailsModalwee').hide();
+    console.log(true);
+    $('#ticketTraiterModalwee').modal('show');
+});
+
+
+
+
+
+
+
 
 setupConfirmation('#deleteUsercentreModal', {
     title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
@@ -571,6 +765,19 @@ function ajaxRequest(userId, url, url_, type) {
 };
 
 
+function reloadTable_(url_) {
+    $.ajax({
+        url: url_,
+        type: 'GET',
+        dataType: 'html',
+        success: function(data) {
+            $('#body').html(data);
+        },
+        error: function(xhr) {
+            console.error('Une erreur est survenue lors du chargement du tableau.');
+        }
+    });
+}
 
 
 function reloadTable(url_, callback) {

@@ -38,6 +38,6 @@ class TicketOuvertController extends Controller
             ->orderBy('tickets.TicketId', 'asc')
             ->get();
 
-        return view('ticketcloturer.index', ['matchingTickets' => $tickets]);
+        return view('ticketouvert.index', ['matchingTickets' => $tickets]);
     }
 }

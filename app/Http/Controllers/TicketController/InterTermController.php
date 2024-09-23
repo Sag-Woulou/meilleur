@@ -38,6 +38,6 @@ class InterTermController
             ->get();
 
 
-        return view('ticketcloturer.index', ['matchingTickets' => $tickets]);
+        return view('ticketterminer.index', ['matchingTickets' => $tickets]);
     }
 }

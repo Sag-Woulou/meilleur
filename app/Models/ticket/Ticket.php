@@ -85,13 +85,8 @@ class Ticket extends Model
         return $this->hasMany(CommentaireTicket::class, 'TicketId', 'TicketId');
     }
 
-    /**
-     * Relation avec l'abonné lié à ce ticket
-     */
-    public function abonne()
-    {
-        return $this->belongsTo(Abonne::class);
-    }
+
+
 
     /**
      * Relation avec le service associé à ce ticket

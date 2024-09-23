@@ -39,6 +39,6 @@ class AttenteClientController extends Controller
             ->get();
 
 
-        return view('ticketcloturer.index', ['matchingTickets' => $tickets]);
+        return view('attenteclient.index', ['matchingTickets' => $tickets]);
     }
 }

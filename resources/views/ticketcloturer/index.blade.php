@@ -23,6 +23,7 @@
                                 <th>Numéro d'Appelant</th>
                                 <th>Type de Panne</th>
                                 <th>Niveau d'Urgence</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -31,7 +32,7 @@
                                     {{-- Formatage du numéro de ticket --}}
                                     @php
                                         // Compléter avec des zéros à gauche si nécessaire
-                                        $ticketNumber = str_pad($ticket->TicketId, 9, '0', STR_PAD_LEFT);
+                                        $ticketNumber = str_pad($ticket->id, 9, '0', STR_PAD_LEFT);
                                         // Formater en 000-000-000 sur une seule ligne
                                         $formattedTicketNumber = substr($ticketNumber, 0, 3) . '-' . substr($ticketNumber, 3, 3) . '-' . substr($ticketNumber, 6);
                                     @endphp
@@ -45,6 +46,11 @@
 
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
+                                    <th>
+                                        <a href="#" id="ticketDetailsModal1" class="view" data-id="{{ $ticket->id }}">
+                                            <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
+                                        </a>
+                                    </th>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -59,3 +65,7 @@
         </div>
     </div>
 @endsection
+@section('modal')
+    @include('ticketcloturer.modal')
+@endsection
+

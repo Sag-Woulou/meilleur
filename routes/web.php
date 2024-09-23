@@ -44,7 +44,9 @@ Route::delete('rolelier/deleted/{role}', [RolePermissionController::class, 'dest
 Route::delete('services/deleted/{service}', [ServiceController::class, 'destroy'])->name('services.updateDeleted');
 Route::delete('userservice/deleted/{user}',[UserServiceController::class, 'destroy'])->name('userservice.updateDeleted');
 Route::delete('usercentre/deleted/{user}',[UserCentreDistribController::class, 'destroy'])->name('usercentre.updateDeleted');
-Route::put('transferticket/{transferticket}', [TransfertController::class, 'update'])->name('transferticket.updatedTicket');;
+Route::put('transferticket/{transferticket}', [TransfertController::class, 'update'])->name('transferticket.updatedTicket');
+Route::get('traiterticket/{id}', [TraiterTicketController::class, 'show'])->name('traiterticket.show');
+
 
 
 

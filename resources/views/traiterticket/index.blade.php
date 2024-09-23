@@ -1,5 +1,4 @@
 @extends('adminbase.dashboard')
-
 @section('tableview')
     <div class="main-content">
         <div class="row">
@@ -23,18 +22,24 @@
                                 <th>Numéro d'Appelant</th>
                                 <th>Type de Panne</th>
                                 <th>Niveau d'Urgence</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($matchingTickets as $ticket)
                                 <tr>
-                                    <td>{{ $ticket->TicketId }}</td>
+                                    <td>{{ $ticket->id }}</td>
                                     <td>{{ explode('.', $ticket->CreationDatetime)[0] }}</td>
                                     <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
                                     <td>{{ $ticket->NumeroAppelant }}</td>
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
-                                </tr>
+                                    <th>
+                                        <a href="#" id="ticketDetailsModal" class="view" data-id="{{ $ticket->id }}">
+                                            <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
+                                        </a>
+                                    </th>
+
                             @endforeach
                             </tbody>
                         </table>
@@ -48,3 +53,9 @@
         </div>
     </div>
 @endsection
+@section('modal')
+    @include('traiterticket.modal')
+    @include('traiterticket.modalTraiter')
+@endsection
+
+
