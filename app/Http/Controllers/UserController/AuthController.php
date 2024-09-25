@@ -10,10 +10,16 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Auth;
+use MongoDB\Driver\Session;
 
-class AuthController extends Controller
+class AuthController extends Controller implements HasMiddleware
 {
+    function __construct (){
+       // $this->middleware('isAuth');
+    }
 
     public function login(){
         return view('auth.login');
@@ -26,6 +32,18 @@ class AuthController extends Controller
         $roles = Role::with('permissions')->has('permissions')->get();
         return view('admin.index', compact('users', 'roles'));
     }
+
+
+    public function users(): View|Factory|Application
+    {
+
+        $users = User::with('roles')->where('deleted', false)->paginate(10);
+        $roles = Role::with('permissions')->has('permissions')->get();
+        return view('users.listUser', compact('users', 'roles'));
+    }
+
+
+
     public function authenticate(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -42,5 +60,23 @@ class AuthController extends Controller
         return back()->withErrors([
             'name' => 'Identifiants incorrects.',
         ])->onlyInput('username');
+    }
+    function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
+
+        return [
+            //'isAuth',
+           // new Middleware('log', only: ['index']),
+            //new Middleware('subscribed', except: ['store']),
+        ];
     }
 }

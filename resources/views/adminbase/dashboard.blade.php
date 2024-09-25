@@ -8,51 +8,74 @@
             <div class="sidebar-header">
                 <h3><img src="{{ asset('img/Logo-site-SONABEL-def.png') }}" class="img-fluid"/><span>GES-TICKET </span></h3>
             </div>
-            <ul class="list-unstyled component m-0">
-                <li class="active">
-                    <a href="{{route('admin.index')}}" class="dashboard"><i class="material-icons">dashboard</i>dashboard </a>
+            <ul class="list-unstyled component m-0" >
+
+
+                <li class="dropdown {{Route::is('admin.index')? 'active' : ''}}" style="text-decoration: none">
+                    <a href="{{route('admin.index')}}" class="dashboard" style="text-decoration: none"><i class="material-icons">dashboard</i>Dashboard </a>
                 </li>
 
-                <li class="dropdown">
+                @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="chef") )
+                <li class="dropdown {{Route::is('listUser')? 'active' : ''}}">
+                    <a href="{{route('listUser')}}" class="dashboard" style="text-decoration: none"><i class="material-icons">group</i>Utilisateur </a>
+                </li>
+
+                    <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
-                       class="dropdown-toggle">
-                        <i class="material-icons">group</i> Affectations
+                       class="dropdown-toggle" style="text-decoration: none">
+                        <i class="material-icons">dashboard</i> Affectations
                     </a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-                        <li><a href="{{route('usercentre.index')}}">Zone & utilisateur</a></li>
-                        <li><a href="{{route('userservice.index')}}">Service & utilisateur</a></li>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1" style="text-decoration: none">
+                        <li class="dropdown {{Route::is('usercentre.index')? 'active' : ''}}"> <a href="{{route('usercentre.index')}}" style="text-decoration: none">Zone & utilisateur</a></li>
+                        <li class="dropdown {{Route::is('userservice.index')? 'active' : ''}}"><a href="{{route('userservice.index')}}" style="text-decoration: none">Service & utilisateur</a></li>
                     </ul>
                 </li>
+                    @endif
 
-                <li class="dropdown">
+
+                    @if((strtolower(auth()->user()->role->name)==="administrateur"))
+
+                    <li class="dropdown">
                     <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
-                       class="dropdown-toggle">
+                       class="dropdown-toggle" style="text-decoration: none">
                         <i class="material-icons">aspect_ratio</i>Permissions
                     </a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                        <li><a href="{{ route('roles.index') }}">Roles</a></li>
-                        <li><a href="{{ route('permissions.index') }}">Permissions</a></li>
-                        <li><a href="{{route('rolelier.index')}}">Roles & Permissions</a></li>
-                        <li><a href="{{route('services.index')}}">Services</a></li>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu2" style="text-decoration: none">
+                        <li class="dropdown {{Route::is('roles.index')? 'active' : ''}}"><a href="{{ route('roles.index') }}" style="text-decoration: none">Roles</a></li>
+                        <li class="dropdown {{Route::is('permissions.index')? 'active' : ''}}"><a href="{{ route('permissions.index') }}" style="text-decoration: none">Permissions</a></li>
+                        <li class="dropdown {{Route::is('rolelier.index')? 'active' : ''}}"><a href="{{route('rolelier.index')}}" style="text-decoration: none">Roles & Permissions</a></li>
+                        <li class="dropdown {{Route::is('services.index')? 'active' : ''}}"><a href="{{route('services.index')}}" style="text-decoration: none">Services</a></li>
                     </ul>
                 </li>
 
+                    @endif
+
+
+
+                @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent")|| (strtolower(auth()->user()->role->name)==="superviseur"))
 
                 <li class="dropdown">
                     <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false"
-                       class="dropdown-toggle">
-                        <i class="material-icons">description</i> Tickets
+                       class="dropdown-toggle" style="text-decoration: none">
+                        <i class="material-icons" >description</i> Tickets
                     </a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu3">
-                        <li><a href="{{route('traiterticket.index')}}">En attente d'intervention</a></li>
-                        <li><a href="{{route('ticketouvert.index')}}">En cours d'intervention</a></li>
-                        <li><a href="{{route('attenteclient.index')}}">En attente du client</a></li>
-                        <li><a href="{{route('ticketterminer.index')}}">intervention terminer</a></li>
-                        <li><a href="{{route('ticketcloturer.index')}}">Cloturer</a></li>
-                        <li><a href="#">Mes ticket Traiter</a></li>
-                        <li><a href="{{route('transferticket.index')}}">Transfers</a></li>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu3" style="text-decoration: none">
+
+                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent"))
+                        <li class="dropdown {{Route::is('traiterticket.index')? 'active' : ''}}"><a href="{{route('traiterticket.index')}} " style="text-decoration: none">En attente d'intervention</a></li>
+                        <li class="dropdown {{Route::is('ticketouvert.index')? 'active' : ''}}"><a href="{{route('ticketouvert.index')}} " style="text-decoration: none">En cours d'intervention</a></li>
+                        <li class="dropdown {{Route::is('attenteclient.index')? 'active' : ''}}"><a href="{{route('attenteclient.index')}} " style="text-decoration: none">En attente du client</a></li>
+                        <li class="dropdown {{Route::is('ticketterminer.index')? 'active' : ''}}"><a href="{{route('ticketterminer.index')}} " style="text-decoration: none">intervention terminer</a></li>
+                        <li class="dropdown {{Route::is('ticketcloturer.index')? 'active' : ''}}"><a href="{{route('ticketcloturer.index')}} " style="text-decoration: none">Cloturer</a></li>
+                        <li><a href="#" style="text-decoration: none">Mes ticket Traiter</a></li>
+                        @endif
+
+                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="superviseur"))
+                        <li class="dropdown {{Route::is('transferticket.index')? 'active' : ''}}"><a href="{{route('transferticket.index')}}" style="text-decoration: none">Transferts</a></li>
+                        @endif
                     </ul>
                 </li>
+                @endif
             </ul>
         </div>
         <!-- Sidebar End -->
@@ -84,38 +107,45 @@
                             </div>
                         </div>
 
-
                         <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
                             <div class="xp-profilebar text-right">
                                 <nav class="navbar p-0">
                                     <ul class="nav navbar-nav flex-row ml-auto">
+
+
+                                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent") )
                                         <li class="dropdown nav-item active">
-                                            <a class="nav-link" href="#" data-toggle="dropdown">
-                                                <span class="material-icons">notifications</span>
+                                            <a class="nav-link" href="#" data-toggle="dropdown" style="text-decoration: none">
+                                                <span class="material-icons" >notifications</span>
                                                 <span class="notification">4</span>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">You Have 4 New Messages</a></li>
-                                                <li><a href="#">You Have 4 New Messages</a></li>
-                                                <li><a href="#">You Have 4 New Messages</a></li>
-                                                <li><a href="#">You Have 4 New Messages</a></li>
+                                                <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
+                                                <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
+                                                <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
+                                                <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
                                             </ul>
                                         </li>
+                                        @endif
+
+
+
                                         <li class="dropdown nav-item">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
-                                                <img src="img/user.jpg" style="width:40px; border-radius:50%;"/>
+                                                <img src="{{asset('img/user.jpg')}}" style="width:40px; border-radius:50%;"/>
                                                 <span class="xp-user-live"></span>
                                             </a>
                                             <ul class="dropdown-menu small-menu">
-                                                <li><a href="#">
-                                                        <span class="material-icons">person_outline</span>
+                                                <li><a href="#" style="text-decoration: none">
+                                                        <span class="material-icons" >person_outline</span>
                                                         Profile
                                                     </a></li>
-                                                <li><a href="#">
-                                                        <span class="material-icons">settings</span>
+                                                <li><a href="#" style="text-decoration: none">
+                                                        <span class="material-icons" >settings</span>
                                                         Paramettre
                                                     </a></li>
-                                                <li><a href="#">
+                                                <li>
+                                                    <a href="{{route('auth.logout')}}" style="text-decoration: none">
                                                         <span class="material-icons">logout</span>
                                                         Deconnexion
                                                     </a></li>
