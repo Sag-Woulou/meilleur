@@ -452,7 +452,6 @@ $(document).on('click', '#dismissButton', function (event){
     reloadTable_(indexTraiterticketUrl);
     $('#ticketDetailsModalwee').hide();
 });
-
 function showTicketDetails1(ticketId) {
     if (!ticketId) {
         console.error('ID du ticket non défini');
@@ -512,8 +511,6 @@ function showTicketDetails1(ticketId) {
         }
     });
 }
-
-
 function resetModalContent1() {
     $('#ticketId1').text('');
     $('#ticketDescription1').text('');
@@ -545,13 +542,23 @@ $(document).on('click', '#dismissButton1', function (event){
     reloadTable_(indexticketcloturerUrl);
 
 });
-
 $(document).on('click', '#traiterButton2', function (event){
     event.preventDefault();
     $('#ticketDetailsModalwee').hide();
     console.log(true);
-    $('#ticketTraiterModalwee').modal('show');
+    $('#ticketTraiterModalwee5').modal('show');
 });
+
+$(document).on('click', '#traiterButton3', function (event){
+    event.preventDefault();
+    reloadTable_(indexAttenteclientUrl);
+});
+
+
+
+
+
+
 
 
 
