@@ -6,7 +6,7 @@
         <!-- Sidebar -->
         <div id="sidebar">
             <div class="sidebar-header">
-                <h3><img src="{{ asset('img/Logo-site-SONABEL-def.png') }}" class="img-fluid"/><span>GES-TICKET </span></h3>
+                <h3><img src="{{ asset('img/Logo-site-SONABEL-def.png') }}" class="img-fluid"/><span>{{config('app.name')}}</span></h3>
             </div>
             <ul class="list-unstyled component m-0" >
 
@@ -15,7 +15,7 @@
                     <a href="{{route('admin.index')}}" class="dashboard" style="text-decoration: none"><i class="material-icons">dashboard</i>Dashboard </a>
                 </li>
 
-                @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="chef") )
+                @if((strtolower(auth()->user()->role->name)==="administrateur") || (strtolower(auth()->user()->role->name)==="chef") )
                 <li class="dropdown {{Route::is('listUser')? 'active' : ''}}">
                     <a href="{{route('listUser')}}" class="dashboard" style="text-decoration: none"><i class="material-icons">group</i>Utilisateur </a>
                 </li>
@@ -23,7 +23,7 @@
                     <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle" style="text-decoration: none">
-                        <i class="material-icons">dashboard</i> Affectations
+                        <i class="material-icons">assignment</i> Affectations
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1" style="text-decoration: none">
                         <li class="dropdown {{Route::is('usercentre.index')? 'active' : ''}}"> <a href="{{route('usercentre.index')}}" style="text-decoration: none">Zone & utilisateur</a></li>
@@ -52,7 +52,7 @@
 
 
 
-                @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent")|| (strtolower(auth()->user()->role->name)==="superviseur"))
+                @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent")|| (strtolower(auth()->user()->role->name)==="superviseur") ||(strtolower(auth()->user()->role->name)==="chef"))
 
                 <li class="dropdown">
                     <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false"
@@ -61,7 +61,7 @@
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu3" style="text-decoration: none">
 
-                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent"))
+                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent") ||(strtolower(auth()->user()->role->name)==="superviseur") ||(strtolower(auth()->user()->role->name)==="chef"))
                         <li class="dropdown {{Route::is('traiterticket.index')? 'active' : ''}}"><a href="{{route('traiterticket.index')}} " style="text-decoration: none">En attente d'intervention</a></li>
                         <li class="dropdown {{Route::is('ticketouvert.index')? 'active' : ''}}"><a href="{{route('ticketouvert.index')}} " style="text-decoration: none">En cours d'intervention</a></li>
                         <li class="dropdown {{Route::is('attenteclient.index')? 'active' : ''}}"><a href="{{route('attenteclient.index')}} " style="text-decoration: none">En attente du client</a></li>
@@ -70,7 +70,7 @@
                         <li><a href="#" style="text-decoration: none">Mes ticket Traiter</a></li>
                         @endif
 
-                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="superviseur"))
+                        @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="superviseur") ||(strtolower(auth()->user()->role->name)==="chef"))
                         <li class="dropdown {{Route::is('transferticket.index')? 'active' : ''}}"><a href="{{route('transferticket.index')}}" style="text-decoration: none">Transferts</a></li>
                         @endif
                     </ul>
@@ -136,14 +136,15 @@
                                                 <span class="xp-user-live"></span>
                                             </a>
                                             <ul class="dropdown-menu small-menu">
-                                                <li><a href="#" style="text-decoration: none">
+                                                <li><a style="text-decoration: none " >
                                                         <span class="material-icons" >person_outline</span>
-                                                        Profile
+                                                        {{auth()->user()->username}}
+                                                       <br>{{auth()->user()->role->name}}
                                                     </a></li>
-                                                <li><a href="#" style="text-decoration: none">
+                                                {{--<li><a href="#" style="text-decoration: none">
                                                         <span class="material-icons" >settings</span>
                                                         Paramettre
-                                                    </a></li>
+                                                    </a></li>--}}
                                                 <li>
                                                     <a href="{{route('auth.logout')}}" style="text-decoration: none">
                                                         <span class="material-icons">logout</span>

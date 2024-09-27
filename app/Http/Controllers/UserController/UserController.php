@@ -9,11 +9,13 @@ use App\Http\Requests\UserRequests\UserUpdateRequest;
 use App\Models\user\Role;
 use App\Models\user\User;
 use App\Models\UserRole;
+use GuzzleHttp\Middleware;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -75,5 +77,6 @@ class UserController extends Controller
         $user->delete();
         return response()->json(['message' => 'Utilisateur supprimé avec succès']);
     }
+
 
 }

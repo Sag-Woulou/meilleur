@@ -364,6 +364,12 @@ $(document).on('click', '#transfertTicketModal', function(event) {
     ajaxFormSubmit('transfertModalForm',updateTicketUrlUrlBaseUrl,indexTransfertUrl,'POST')
 
 });
+$(document).on('click', '#fermermodaltransferer', function (event){
+    event.preventDefault();
+    reloadTable_(indexTransfertUrl);
+
+});
+
 function showTicketDetails(ticketId) {
     if (!ticketId) {
         console.error('ID du ticket non défini');
@@ -371,8 +377,11 @@ function showTicketDetails(ticketId) {
     }
     resetModalContent();
 
+    // Remplacer :id par l'ID du ticket dans l'URL générée par Laravel
+    var url = ticketUrl.replace(':id', ticketId);
+
     $.ajax({
-        url: `/traiterticket/${ticketId}`,
+        url: url,
         method: 'GET',
         dataType: 'json',
         success: function(response) {
@@ -423,6 +432,7 @@ function showTicketDetails(ticketId) {
         }
     });
 }
+
 function resetModalContent() {
     $('#ticketId').text('');
     $('#ticketDescription').text('');
@@ -553,10 +563,6 @@ $(document).on('click', '#traiterButton3', function (event){
     event.preventDefault();
     reloadTable_(indexAttenteclientUrl);
 });
-
-
-
-
 
 
 
@@ -709,9 +715,6 @@ function ajaxFormSubmit(formId, url, url_, method = 'POST') {
         });
     });
 }
-
-
-
 function setupConfirmation(selector, options, onConfirm, url, url_, type) {
     $(document).on('click', selector, function(event) {
         event.preventDefault();

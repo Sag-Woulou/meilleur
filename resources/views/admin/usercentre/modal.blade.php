@@ -25,7 +25,7 @@
                         <select id="centre_distrib_ids" name="centre_distrib_ids[]" class="form-control selectpicker" multiple data-live-search="true" data-actions-box="true">
                             @foreach($centreDistribs as $centre)
                                 <option value="{{ $centre->id }}">
-                                    {{ $centre->CENTRE_DISTRIBUTION }} - {{ $centre->EXPL_DEPANNAGE }} - {{ $centre->LIBELLE_EXPL_DEPANNAGE }}
+                                    {{ $centre->CENTRE_DISTRIBUTION }} - {{ $centre->EXPL_DEPANNAGE }} - {{ $centre->LIBELLE_EXPL_DEPANNAGE }} - {{$centre->DIST_LIBELLE}}
                                 </option>
                             @endforeach
                         </select>

@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('admin/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('admin/img/favicon.png') }}">
     <title>
-        Suivie des doleances
+        GES-TICKET
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -29,7 +29,7 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5 text-center mx-auto">
-                            <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+                            <h1 class="text-white mb-2 mt-5">Bienvenue!</h1>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                                 <form role="form text-left" action="{{ route('auth.login') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" placeholder="username" aria-label="username" name="username" id="username" aria-describedby="username-addon">
+                                        <input type="text" class="form-control" placeholder="Nom d'utilisateur" aria-label="username" name="username" id="username" aria-describedby="username-addon">
                                         @error('username')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -102,17 +102,17 @@
                                     </div>--}}
 
                                     <div class="mb-3">
-                                        <input type="password" class="form-control" placeholder="Password" name="password" id="password" aria-label="Password" aria-describedby="password-addon">
+                                        <input type="password" class="form-control" placeholder="Mot de passe" name="password" id="password" aria-label="Password" aria-describedby="password-addon">
                                         @error('password')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="rememberMe" checked="">
-                                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                                        <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign in</button>
+                                        <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Connexion</button>
                                     </div>
 {{--
                                     <p class="text-sm mt-3 mb-0">Already have an account? <a href="javascript:;" class="text-dark font-weight-bolder">Sign in</a></p>

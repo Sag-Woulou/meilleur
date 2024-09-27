@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page non trouvée</title>
+    <title>Erreur cote serveur</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0D1B2A, #0A5041, #3D0066); /* Dégradé bleu foncé, vert foncé et violet foncé */
+            background: linear-gradient(135deg, #0D1B2A, #0f2350, #660000); /* Dégradé bleu foncé, vert foncé et violet foncé */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,21 +34,20 @@
         a {
             text-decoration: none;
             color: #fff;
-            background-color: #1F4287;
+            background-color: #21592c;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s;
         }
         a:hover {
-            background-color: #16324F;
+            background-color: #18772b;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>404</h1>
-    <h2>Oops ! La page que vous cherchez n'existe pas.</h2>
-    <p>Il semble que la page que vous avez demandée soit introuvable.</p>
+    <h1>500</h1>
+    <h2>Oops ! Une erreur est survenue lors de la demande.</h2>
     <a href="{{ url('/') }}">Retour à l'accueil</a>
 </div>
 </body>
