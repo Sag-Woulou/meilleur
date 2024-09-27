@@ -53,7 +53,6 @@ class AuthController extends Controller implements HasMiddleware
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
             return redirect()->route('admin.index');
         }
 
@@ -78,5 +77,30 @@ class AuthController extends Controller implements HasMiddleware
            // new Middleware('log', only: ['index']),
             //new Middleware('subscribed', except: ['store']),
         ];
+    }
+
+    private function jwt(User $user)
+    {
+      $payload = [
+          'iss' => "gestion-ticket-jwt",
+          'sub' => $user->id,
+          'iat' => time(),
+          'exp' => time() + 60 * 60,
+          'user' => $user,
+          'role' => $user->role->libelle
+
+      ] ;
+      //return JWT::encode($payload, env('JWT_SECRET'));
+      return null;
+    }
+
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => time() + 60 * 60
+        ]);
     }
 }

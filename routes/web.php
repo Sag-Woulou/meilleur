@@ -30,7 +30,7 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.inde
 
 
 ##AGENT##
-Route::prefix('agent')->middleware(['isAuth','isAgent'])->middleware(['isSuperviseur','isChef'])->middleware(['isAdmin'])->group(function () {
+Route::prefix('agent')->group(function () {
     Route::resource('ticketcloturer', CloturerTicketController::class);
     Route::resource('traiterticket', TraiterTicketController::class);
     Route::resource('ticketouvert', TicketOuvertController::class);
@@ -38,19 +38,19 @@ Route::prefix('agent')->middleware(['isAuth','isAgent'])->middleware(['isSupervi
     Route::resource('attenteclient', AttenteClientController::class);
     Route::get('traiterticket/{id}', [TraiterTicketController::class, 'show'])->name('traiterticket.show');
 
-});
+})->middleware(['isAdmin','isAgent','isChef','isSuperviseur']);
 
 
 ##SUPERVISEUR##
-Route::prefix('superviseur')->middleware(['isAuth','isSuperviseur'])->middleware(['isChef', 'isAdmin'])->group(function () {
+Route::prefix('superviseur')->middleware('isAuth')->group(function () {
     Route::resource('transferticket', TransfertController::class);
     Route::put('transferticket/{transferticket}', [TransfertController::class, 'update'])->name('transferticket.updatedTicket');
-});
+})->middleware([ 'isAdmin','isChef','isSuperviseur']);
 
 
 
 ##CHEF##
-Route::prefix('chef')->middleware(['isAuth','isChef'])->middleware(['isAdmin'])->group(function () {
+Route::prefix('chef')->group(function () {
     Route::get('/listeusers', [AuthController::class, 'users'])->name('listUser');
     Route::resource('users', UserController::class);
     Route::resource('userservice', UserServiceController::class);
@@ -58,13 +58,13 @@ Route::prefix('chef')->middleware(['isAuth','isChef'])->middleware(['isAdmin'])-
     Route::put('/users/delete/{user}', [UserController::class, 'updateDeleted'])->name('users.updateDeleted');
     Route::delete('userservice/deleted/{user}',[UserServiceController::class, 'destroy'])->name('userservice.updateDeleted');
     Route::delete('usercentre/deleted/{user}',[UserCentreDistribController::class, 'destroy'])->name('usercentre.updateDeleted');
-});
+})->middleware(['isAdmin','isChef']);
 
 
 
 
 ##ADMIN##
-Route::prefix('administrateur')->middleware(['isAuth','isAdmin'])->group(function () {
+Route::prefix('administrateur')->group(function () {
     Route::put('/roles/delete/{role}', [RoleController::class, 'updateDeleted'])->name('roles.updateDeleted');
     Route::put('/permissions/delete/{permission}', [PermissionController::class, 'updateDeleted'])->name('permissions.updateDeleted');
     Route::delete('rolelier/deleted/{role}', [RolePermissionController::class, 'destroy'])->name('rolelier.updateDeleted');
@@ -74,7 +74,7 @@ Route::prefix('administrateur')->middleware(['isAuth','isAdmin'])->group(functio
     Route::resource('permissions', PermissionController::class);
     Route::resource('rolelier', RolePermissionController::class);
 
-});
+})->middleware('isAdmin');
 
 
 

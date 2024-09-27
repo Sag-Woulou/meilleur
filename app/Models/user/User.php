@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * @method static paginate(int $int)
@@ -17,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
  * @property mixed $role
  * @property mixed $id
  */
-class User extends Authenticatable
+class User extends Authenticatable  implements JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -84,4 +85,15 @@ class User extends Authenticatable
         return $this->belongsToMany(CentreDistrib::class, 'centre_user', 'user_id', 'centre_distrib_id')->withPivot('id');
     }
 
+    public function getJWTIdentifier()
+    {
+        // TODO: Implement getJWTIdentifier() method.
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        // TODO: Implement getJWTCustomClaims() method.
+        return [];
+    }
 }

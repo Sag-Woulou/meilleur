@@ -18,7 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'isAgent'=>\App\Http\Middleware\IsAgent::class,
            'isSuperviseur'=>\App\Http\Middleware\IsSuperviseur::class,
             'isChef'=>\App\Http\Middleware\IsChef::class
-
         ]);
 
 
@@ -26,3 +25,4 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+
