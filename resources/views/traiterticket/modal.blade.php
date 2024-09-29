@@ -63,8 +63,10 @@
                 </div>
             </div>
             <div class="modal-footer">
+                @if(isset($matchingTickets) && isset($ticket))
                 <button id="traiterButton2" type="submit" class="btn btn-primary" data-id="{{ $ticket->id }}">Traiter</button>
                 <button type="button" id="dismissButton" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                @endif
             </div>
         </div>
     </div>

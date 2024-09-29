@@ -314,52 +314,45 @@ $(document).on('click', '#relieUserModal', function (event) {
         $('#relieUserServiceModal').modal('show');
     }
 });
-$(document).on('click', '#usercentreModal', function (event) {
+/*$(document).on('click', '#usercentreModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
-    $('#userCentreForm')[0].reset();
+    $('#userCentreForm')[0].reset(); // Reset le formulaire
     $('#user_id').prop('disabled', false);
     $('#centre_distrib_ids').prop('disabled', false);
-    $('#savebutton').show();
-    $('span.text-danger').html('');
+    $('#savebutton').show(); // Affiche le bouton enregistrer
+    $('span.text-danger').html(''); // Reset des erreurs
 
+    // Si dataType est égal à 1, on est dans le cas de création
     if (dataType === 1) {
         $('#associerCentreModalTitleLabel').text('Associer Utilisateur et Centres de Distribution');
-        $('#userCentreForm').attr('action', userCentrestoreUrl);
-        $('#userCentreForm').attr('method', 'POST');
-        $('#associerCentreModal').modal('show');
+        $('#userCentreForm').attr('action', userCentrestoreUrl); // URL pour créer l'association
+        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour la création
+        $('#associerCentreModal').modal('show'); // Ouvre le modal
         ajaxFormSubmit('serviceForm', userCentrestoreUrl, indexUserCentresUrl, 'POST');
-        $('#userCentreForm')[0].reset();
-        $('#associerCentreModal').modal('hide');
-    } else if (dataType === 0) {
+        $('#userCentreForm')[0].reset(); // Reset le formulaire après soumission
+        $('#associerCentreModal').modal('hide'); // Ferme le modal
+    }
+    // Si dataType est égal à 0, on est dans le cas de l'édition
+    else if (dataType === 0) {
         var id = $this.data('id');
         var userId = $this.data('user_id');
         var centreDistribIds = $this.data('centre_distrib_ids');
         console.log('centreDistribIds', centreDistribIds);
-        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id);
-        $('#associerCentreModalTitleLabel').text('Modifier lien rôle-Permission (ID: ' + id + ')');
-        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl);
-        $('#userCentreForm').attr('method', 'POST');
-        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">');
-        $('#user_id').val(userId);
-        $('#centre_distrib_ids').val(centreDistribIds);
-        $('#associerCentreModal').modal('show');
 
-        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexServicesUrl, 'POST');
-    } else if (dataType === 3) {
-        var id = $this.data('id');
-        var userId = $this.data('user_id');
-        var centreDistribIds = $this.data('centre_distrib_ids');
-        $('#relieRolePermissionModalTitleLabel').text('Lien rôle-Permission (ID: ' + id + ')');
-        $('#user_id').val(userId);
-        $('#user_id').prop('disabled', true);
-        $('#centre_distrib_ids').val(centreDistribIds);
-        $('#centre_distrib_ids').prop('disabled', true);
-        $('#savebutton').hide();
-        $('#associerCentreModal').modal('show');
+        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id); // Remplace ID par l'id réel
+        $('#associerCentreModalTitleLabel').text('Modifier lien Utilisateur-Centres (ID: ' + id + ')');
+        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl); // URL pour la mise à jour
+        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour l'édition
+        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">'); // Pour que Laravel utilise PUT
+        $('#user_id').val(userId); // Remplit le champ utilisateur
+        $('#centre_distrib_ids').val(centreDistribIds); // Remplit le champ centres
+        $('#associerCentreModal').modal('show'); // Ouvre le modal
+
+        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexUserCentresUrl, 'POST'); // Soumission du formulaire
     }
-});
+});*/
 
 $(document).on('click', '#dismissUserCentre', function (event) {
     event.preventDefault();
@@ -600,6 +593,57 @@ document.addEventListener('click', function(e) {
 
 
 
+
+
+
+
+
+$(document).on('click', '#usercentreModal', function (event) {
+    event.preventDefault();
+    var $this = $(this);
+    var dataType = $this.data('type');
+    $('#userCentreForm')[0].reset(); // Reset le formulaire
+    $('#user_id').prop('disabled', false);
+    $('#centre_distrib_ids').prop('disabled', false);
+    $('#savebutton').show(); // Affiche le bouton enregistrer
+    $('span.text-danger').html(''); // Reset des erreurs
+
+    // Si dataType est égal à 1, on est dans le cas de création
+    if (dataType === 1) {
+        $('#associerCentreModalTitleLabel').text('Associer Utilisateur et Centres de Distribution');
+        $('#userCentreForm').attr('action', userCentrestoreUrl); // URL pour créer l'association
+        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour la création
+        $('#associerCentreModal').modal('show'); // Ouvre le modal
+        ajaxFormSubmit('serviceForm', userCentrestoreUrl, indexUserCentresUrl, 'POST');
+        $('#userCentreForm')[0].reset(); // Reset le formulaire après soumission
+        $('#associerCentreModal').modal('hide'); // Ferme le modal
+    }
+    // Si dataType est égal à 0, on est dans le cas de l'édition
+    else if (dataType === 0) {
+        var id = $this.data('id');
+        var userId = $this.data('user_id');
+        var centreDistribIds = $this.data('centre_distrib_ids');
+        console.log('centreDistribIds', centreDistribIds);
+
+        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id); // Remplace ID par l'id réel
+        $('#associerCentreModalTitleLabel').text('Modifier lien Utilisateur-Centres (ID: ' + id + ')');
+        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl); // URL pour la mise à jour
+        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour l'édition
+        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">'); // Pour que Laravel utilise PUT
+        $('#user_id').val(userId); // Remplit le champ utilisateur
+        $('#centre_distrib_ids').val(centreDistribIds); // Remplit le champ centres
+        $('#associerCentreModal').modal('show'); // Ouvre le modal
+
+    }
+});
+
+
+
+
+
+
+
+
 $(document).ready(function() {
     // Écouteur d'événements pour ouvrir le modal et fermer un autre
     $(document).on('click', '#traiterButton2', function(event) {
@@ -642,9 +686,9 @@ $(document).ready(function() {
             Description: Description // Ajout du commentaire ici
         };
         console.log(formData);
-
+        ajaxFormSubmitDta(formData, tickettraiterstoreUrl, indexTraiterticketUrl, "POST");
         // Envoi des données via AJAX
-        $.ajax({
+       /* $.ajax({
             url: tickettraiterstoreUrl, // URL du contrôleur Laravel
             method: 'POST',
             contentType: 'application/json',
@@ -666,8 +710,39 @@ $(document).ready(function() {
                 }
             }
         });
-
+*/
     });
+
+
+    function ajaxFormSubmitDta(data, url, url_, method = 'POST') {
+        $.ajax({
+                url: url,
+                type: method,
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    reloadTable(url_, function () {
+                        toastr.success(response.message, 'Succès');
+                    });
+                    $form[0].reset();
+                    $('.modal').modal('hide');
+                },
+                error: function (xhr) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function (key, value) {
+                            $('#error-' + key).html(value[0]);
+                        });
+                    } else {
+                        toastr.error('Une erreur est survenue. Veuillez réessayer plus tard.');
+                    }
+                },
+                complete: function () {
+                    submitButton.prop('disabled', false).text('Envoyer');
+                }
+            }
+        );
+    }
 
     // Suppression d'un article de la liste dynamique
     document.addEventListener('click', function(e) {
@@ -894,6 +969,9 @@ function ajaxRequest(userId, url, url_, type) {
     });
 
 };
+
+
+
 
 
 function reloadTable_(url_) {
