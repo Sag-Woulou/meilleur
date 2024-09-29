@@ -28,18 +28,7 @@ class Intervention extends Model
     // Relation avec Article (plusieurs articles)
     public function articles()
     {
-        return $this->belongsToMany(Article::class, 'ArticleIntervention', 'InterventionId', 'ArtId');
+        return $this->belongsToMany(Article::class, 'intervention_article', 'InterventionId', 'ArtId');
     }
 
-    // Relation avec InterventionStatut (un seul statut)
-    public function statut()
-    {
-        return $this->belongsTo(InterventionStatut::class, 'InterventionStatutId'); // Relation un-à-un
-    }
-
-    // Relation avec TypePanneReel (plusieurs types de panne)
-    public function typePanneReels()
-    {
-        return $this->belongsToMany(TypePanneReel::class, 'InterventionTypePanneReel', 'InterventionId', 'TypePanneId');
-    }
 }

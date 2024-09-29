@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNombreArticlesToInterventionTable extends Migration
+class DropArtIdFromInterventionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,10 @@ class AddNombreArticlesToInterventionTable extends Migration
     public function up()
     {
         Schema::table('intervention', function (Blueprint $table) {
-            $table->integer('nombreArticles')->nullable()->after('ArtId'); // Ajout de la colonne
+            // Supprimer la clé étrangère si elle existe
+            $table->dropForeign(['ArtId']);
+            // Supprimer la colonne ArtId
+            $table->dropColumn('ArtId');
         });
     }
 
@@ -26,7 +29,10 @@ class AddNombreArticlesToInterventionTable extends Migration
     public function down()
     {
         Schema::table('intervention', function (Blueprint $table) {
-            $table->dropColumn('nombreArticles'); // Suppression de la colonne si la migration est annulée
+            // Ajouter à nouveau la colonne ArtId
+            $table->unsignedInteger('ArtId')->nullable();
+            // Définir la clé étrangère
+            $table->foreign('ArtId')->references('ArtId')->on('Articles')->onDelete('no action');
         });
     }
 }

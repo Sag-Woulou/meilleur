@@ -19,8 +19,8 @@ class InterventionStatut extends Model
     protected $fillable = ['Statut'];
 
     // Relation avec Intervention
-    public function interventions()
-    {
-        return $this->hasMany(Intervention::class, 'InterventionStatutId', 'InterventionStatutId');
+    public function interventions(){
+        return $this->hasMany(Intervention::class , 'InterventionStatutId');
     }
+
 }

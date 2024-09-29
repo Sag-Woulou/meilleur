@@ -4,6 +4,8 @@ namespace App\Http\Controllers\TicketController;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketsRequests\TicketUpdateStoreReques;
+use App\Models\intervention\Article;
+use App\Models\intervention\TypePanneReel;
 use App\Models\ticket\Abonne;
 use App\Models\ticket\CommentaireTicket;
 use App\Models\ticket\Ticket;
@@ -50,9 +52,11 @@ class TraiterTicketController extends Controller
 
         // Convertir le tableau en collection
         $tickets = collect($tickets);
+        $articles = Article::all();
+        $typePannes = TypePanneReel::all();
 
 
-        return view('traiterticket.index', ['matchingTickets' => $tickets]);
+        return view('traiterticket.index', ['matchingTickets' => $tickets ,'articles'=>$articles ,'typePannes'=>$typePannes]);
     }
 
 

@@ -1,9 +1,9 @@
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="userModalTitleLabel" aria-hidden="true">
+<div class="modal fade" id="addUserModalShow" tabindex="-1" role="dialog" aria-labelledby="userModalTitleLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="userModalTitleLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button  id="dismissModalAddUser" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -66,7 +66,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button id="dismissModalAddUser" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" id="saveButton" class="btn btn-primary">Enregistrer</button>
                 </div>
             </form>

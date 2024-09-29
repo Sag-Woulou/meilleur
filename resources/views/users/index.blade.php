@@ -1,4 +1,5 @@
-<div class="modal fade @if ($errors->any()) show @endif" tabindex="-1" id="addUserModal" role="dialog" style="@if ($errors->any()) display: block; @endif">
+<div class="modal fade @if ($errors->any()) show @endif" tabindex="-1" id="addUserModal"
+     role="dialog" style="@if ($errors->any()) display: block; @endif">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="traiterButton2" type="submit" class="btn btn-primary">Traiter</button>
+                <button id="traiterButton2" type="submit" class="btn btn-primary" data-id="{{ $ticket->id }}">Traiter</button>
                 <button type="button" id="dismissButton" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>

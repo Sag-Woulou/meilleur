@@ -1,4 +1,4 @@
-$(document).on('click', '#userModal', function(event) {
+$(document).on('click', '#userModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -17,10 +17,10 @@ $(document).on('click', '#userModal', function(event) {
         $('#userModalTitleLabel').text('Ajouter un Employé');
         $('#uniqueForm').attr('action', storeUrl);
         $('#uniqueForm').attr('method', 'POST');
-        $('#addUserModal').modal('show');
-        ajaxFormSubmit('uniqueForm', storeUrl, indexUserUrl,'POST');
+        $('#addUserModalShow').modal('show');
+        ajaxFormSubmit('uniqueForm', storeUrl, indexUserUrl, 'POST');
         $('#uniqueForm')[0].reset();
-        $('#userModal').modal('hide');
+        $('#addUserModalShow').modal('hide');
     } else if (dataType === 0) {
         var userId = $this.data('id');
         var userName = $this.data('nom');
@@ -28,7 +28,7 @@ $(document).on('click', '#userModal', function(event) {
         var userUsername = $this.data('username');
         var userEmail = $this.data('email');
         var roleid = $this.data('roleid');
-        console.log('role_id',roleid);
+        console.log('role_id', roleid);
         var userDetails = $this.data('other_user_details');
         var updateUrl = updateUrlBase.replace('ID', userId);
         $('#userModalTitleLabel').text('Modifier l\'Employé (ID: ' + userId + ')');
@@ -42,11 +42,11 @@ $(document).on('click', '#userModal', function(event) {
         $('#role_id').val(roleid);
         $('#other_user_details').val(userDetails);
         $('#passwordContent').hide();
-        $('#addUserModal').modal('show');
+        $('#addUserModalShow').modal('show');
 
-        ajaxFormSubmit('uniqueForm', updateUrl, indexUserUrl,'POST');
+        ajaxFormSubmit('uniqueForm', updateUrl, indexUserUrl, 'POST');
 
-    }else if (dataType === 3) {
+    } else if (dataType === 3) {
         var userId = $this.data('id');
         var userName = $this.data('nom');
         var userFirstName = $this.data('prenom');
@@ -69,10 +69,25 @@ $(document).on('click', '#userModal', function(event) {
         $('#other_user_details').prop('disabled', true);
         $('#passwordContent').hide();
         $('#savebuton').hide();
-        $('#addUserModal').modal('show');
+        $('#addUserModalShow').modal('show');
     }
 });
-$(document).on('click', '#roleModal', function(event) {
+$(document).on('click', '#dismissModalAddUser', function (event) {
+    event.preventDefault();
+    $('#addUserModalShow').modal('hide');
+
+});
+$(document).on('click', '#traiterButton2', function (event) {
+    event.preventDefault();
+    var $this = $(this);
+    var id = $this.data('id');
+    $('#TicketId').val(id);
+    $('#InterventionCreate').text('Informations du ticket  (N: ' + id + ')');
+    console.log(id)
+
+})
+
+$(document).on('click', '#roleModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -87,7 +102,7 @@ $(document).on('click', '#roleModal', function(event) {
         $('#uniqueForm').attr('action', rolestoreUrl);
         $('#uniqueForm').attr('method', 'POST');
         $('#roleModalsow').modal('show');
-        ajaxFormSubmit('uniqueForm', rolestoreUrl, indexRolesUrl,'POST');
+        ajaxFormSubmit('uniqueForm', rolestoreUrl, indexRolesUrl, 'POST');
         $('#uniqueForm')[0].reset();
         $('#roleModal').modal('hide');
     } else if (dataType === 0) {
@@ -103,8 +118,8 @@ $(document).on('click', '#roleModal', function(event) {
         $('#description').val(description);
         $('#roleModalsow').modal('show');
 
-        ajaxFormSubmit('uniqueForm', roleupdateUrl, indexRolesUrl,'POST');
-    }else if (dataType === 3) {
+        ajaxFormSubmit('uniqueForm', roleupdateUrl, indexRolesUrl, 'POST');
+    } else if (dataType === 3) {
         var roleId = $this.data('id');
         var name = $this.data('name');
         var description = $this.data('description');
@@ -117,7 +132,7 @@ $(document).on('click', '#roleModal', function(event) {
         $('#roleModalsow').modal('show');
     }
 });
-$(document).on('click', '#permissionModal', function(event) {
+$(document).on('click', '#permissionModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -148,9 +163,9 @@ $(document).on('click', '#permissionModal', function(event) {
         $('#description').val(description);
         $('#roleModalsow').modal('show');
 
-        ajaxFormSubmit('uniqueForm', permissionupdateUrl, IndexPermissionsUrl,'POST');
+        ajaxFormSubmit('uniqueForm', permissionupdateUrl, IndexPermissionsUrl, 'POST');
 
-    }else if (dataType === 3) {
+    } else if (dataType === 3) {
         var roleId = $this.data('id');
         var name = $this.data('name');
         var description = $this.data('description');
@@ -163,7 +178,7 @@ $(document).on('click', '#permissionModal', function(event) {
         $('#roleModalsow').modal('show');
     }
 });
-$(document).on('click', '#relieRoleModal', function(event) {
+$(document).on('click', '#relieRoleModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -178,13 +193,13 @@ $(document).on('click', '#relieRoleModal', function(event) {
         $('#rolePermissionForm').attr('action', rolepermissionstoreUrl);
         $('#rolePermissionForm').attr('method', 'POST');
         $('#relieRolePermissionModal').modal('show');
-        ajaxFormSubmit('rolePermissionForm', rolepermissionstoreUrl, IndexRolePermissionUrl,'POST');
+        ajaxFormSubmit('rolePermissionForm', rolepermissionstoreUrl, IndexRolePermissionUrl, 'POST');
         $('#rolePermissionForm')[0].reset();
         $('#relieRolePermissionModal').modal('hide');
     } else if (dataType === 0) {
         var roleId = $this.data('id');
         var permissions = $this.data('permissions');
-        console.log('permissions',permissions.id);
+        console.log('permissions', permissions.id);
         var roleupdateUrl = rolepermissionupdateUrlBase.replace('ID', roleId);
         $('#relieRolePermissionModalTitleLabel').text('Modifier lien rôle-Permission (ID: ' + roleId + ')');
         $('#rolePermissionForm').attr('action', roleupdateUrl);
@@ -194,8 +209,8 @@ $(document).on('click', '#relieRoleModal', function(event) {
         $('#permission_id').val(permissions);
         $('#relieRolePermissionModal').modal('show');
 
-        ajaxFormSubmit('rolePermissionForm', roleupdateUrl, IndexRolePermissionUrl,'POST');
-    }else if (dataType === 3) {
+        ajaxFormSubmit('rolePermissionForm', roleupdateUrl, IndexRolePermissionUrl, 'POST');
+    } else if (dataType === 3) {
         var roleId = $this.data('id');
         var permissions = $this.data('permissions');
         $('#relieRolePermissionModalTitleLabel').text('Lien rôle-Permission (ID: ' + roleId + ')');
@@ -207,7 +222,7 @@ $(document).on('click', '#relieRoleModal', function(event) {
         $('#relieRolePermissionModal').modal('show');
     }
 });
-$(document).on('click', '#serviceModal', function(event) {
+$(document).on('click', '#serviceModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -226,7 +241,7 @@ $(document).on('click', '#serviceModal', function(event) {
         $('#serviceForm').attr('action', servicestoreUrl);
         $('#serviceForm').attr('method', 'POST');
         $('#serviceModalsow').modal('show');
-        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl,'POST');
+        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl, 'POST');
         $('#serviceForm')[0].reset();
         $('#serviceModal').modal('hide');
     } else if (dataType === 0) {
@@ -246,7 +261,7 @@ $(document).on('click', '#serviceModal', function(event) {
         $('#serviceModalsow').modal('show');
     }
 });
-$(document).on('click', '#relieUserModal', function(event) {
+$(document).on('click', '#relieUserModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -299,7 +314,7 @@ $(document).on('click', '#relieUserModal', function(event) {
         $('#relieUserServiceModal').modal('show');
     }
 });
-$(document).on('click', '#usercentreModal', function(event) {
+$(document).on('click', '#usercentreModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
@@ -314,14 +329,14 @@ $(document).on('click', '#usercentreModal', function(event) {
         $('#userCentreForm').attr('action', userCentrestoreUrl);
         $('#userCentreForm').attr('method', 'POST');
         $('#associerCentreModal').modal('show');
-        ajaxFormSubmit('serviceForm', servicestoreUrl, indexServicesUrl,'POST');;
+        ajaxFormSubmit('serviceForm', userCentrestoreUrl, indexUserCentresUrl, 'POST');
         $('#userCentreForm')[0].reset();
         $('#associerCentreModal').modal('hide');
     } else if (dataType === 0) {
         var id = $this.data('id');
         var userId = $this.data('user_id');
         var centreDistribIds = $this.data('centre_distrib_ids');
-        console.log('centreDistribIds',centreDistribIds);
+        console.log('centreDistribIds', centreDistribIds);
         var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id);
         $('#associerCentreModalTitleLabel').text('Modifier lien rôle-Permission (ID: ' + id + ')');
         $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl);
@@ -331,8 +346,8 @@ $(document).on('click', '#usercentreModal', function(event) {
         $('#centre_distrib_ids').val(centreDistribIds);
         $('#associerCentreModal').modal('show');
 
-        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexServicesUrl,'POST');
-    }else if (dataType === 3) {
+        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexServicesUrl, 'POST');
+    } else if (dataType === 3) {
         var id = $this.data('id');
         var userId = $this.data('user_id');
         var centreDistribIds = $this.data('centre_distrib_ids');
@@ -345,13 +360,19 @@ $(document).on('click', '#usercentreModal', function(event) {
         $('#associerCentreModal').modal('show');
     }
 });
-$(document).on('click', '#transfertTicketModal', function(event) {
+
+$(document).on('click', '#dismissUserCentre', function (event) {
+    event.preventDefault();
+    reloadTable_(indexUserCentresUrl);
+
+});
+$(document).on('click', '#transfertTicketModal', function (event) {
     console.log(true);
     event.preventDefault();
     var $this = $(this);
     var id = $this.data('id');
     var service_id = $this.data('service_id');
-    console.log("service_id",service_id);
+    console.log("service_id", service_id);
     var updateTicketUrlUrlBaseUrl = updateTicketUrl.replace('ID', id);
     $('#transfertModalForm').attr('action', updateTicketUrlUrlBaseUrl);
     $('#transfertModalForm').attr('method', 'POST');
@@ -360,11 +381,11 @@ $(document).on('click', '#transfertTicketModal', function(event) {
     $('#transfertModal').modal('show');
 
     var newservice_id = $('#service_id').val();
-    console.log("newservice_id",newservice_id);
-    ajaxFormSubmit('transfertModalForm',updateTicketUrlUrlBaseUrl,indexTransfertUrl,'POST')
+    console.log("newservice_id", newservice_id);
+    ajaxFormSubmit('transfertModalForm', updateTicketUrlUrlBaseUrl, indexTransfertUrl, 'POST')
 
 });
-$(document).on('click', '#fermermodaltransferer', function (event){
+$(document).on('click', '#fermermodaltransferer', function (event) {
     event.preventDefault();
     reloadTable_(indexTransfertUrl);
 
@@ -384,7 +405,7 @@ function showTicketDetails(ticketId) {
         url: url,
         method: 'GET',
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             console.log('Réponse du serveur : ', response);
 
             // Remplir les détails du ticket
@@ -422,7 +443,7 @@ function showTicketDetails(ticketId) {
                 $('#commentaireDetails').html('<p>Aucun commentaire disponible.</p>');
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('Erreur lors de la récupération des détails du ticket :', xhr.responseText);
             $('#ticketError').html(`
                 <div class="alert alert-danger" role="alert">
@@ -451,17 +472,19 @@ function resetModalContent() {
 
     $('#commentaireDetails').html('');
 }
-$(document).on('click', '#ticketDetailsModal', function(event) {
+
+$(document).on('click', '#ticketDetailsModal', function (event) {
     event.preventDefault();
     $('#ticketDetailsModalwee').modal('show');
     var ticketId = $(this).data('id');
     showTicketDetails(ticketId);
 });
-$(document).on('click', '#dismissButton', function (event){
+$(document).on('click', '#dismissButton', function (event) {
     event.preventDefault();
     reloadTable_(indexTraiterticketUrl);
     $('#ticketDetailsModalwee').hide();
 });
+
 function showTicketDetails1(ticketId) {
     if (!ticketId) {
         console.error('ID du ticket non défini');
@@ -473,7 +496,7 @@ function showTicketDetails1(ticketId) {
         url: `/traiterticket/${ticketId}`,
         method: 'GET',
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
             console.log('Réponse du serveur : ', response);
 
             // Remplir les détails du ticket
@@ -511,7 +534,7 @@ function showTicketDetails1(ticketId) {
                 $('#commentaireDetails1').html('<p>Aucun commentaire disponible.</p>');
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('Erreur lors de la récupération des détails du ticket :', xhr.responseText);
             $('#ticketError').html(`
                 <div class="alert alert-danger" role="alert">
@@ -521,6 +544,7 @@ function showTicketDetails1(ticketId) {
         }
     });
 }
+
 function resetModalContent1() {
     $('#ticketId1').text('');
     $('#ticketDescription1').text('');
@@ -539,7 +563,8 @@ function resetModalContent1() {
 
     $('#commentaireDetails1').html('');
 }
-$(document).on('click', '#ticketDetailsModal1', function(event) {
+
+$(document).on('click', '#ticketDetailsModal1', function (event) {
     event.preventDefault();
 
     $('#ticketDetailsModalwee12').modal('show');
@@ -547,30 +572,134 @@ $(document).on('click', '#ticketDetailsModal1', function(event) {
     showTicketDetails1(ticketId);
     reloadTable_(indexTraiterticketUrl);
 });
-$(document).on('click', '#dismissButton1', function (event){
+$(document).on('click', '#dismissButton1', function (event) {
     event.preventDefault();
     reloadTable_(indexticketcloturerUrl);
 
 });
-$(document).on('click', '#traiterButton2', function (event){
+$(document).on('click', '#traiterButton2', function (event) {
     event.preventDefault();
     $('#ticketDetailsModalwee').hide();
     console.log(true);
     $('#ticketTraiterModalwee5').modal('show');
 });
 
-$(document).on('click', '#traiterButton3', function (event){
+$(document).on('click', '#traiterButton3', function (event) {
     event.preventDefault();
     reloadTable_(indexAttenteclientUrl);
+});
+
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-article')) {
+        e.target.closest('.d-flex').remove();
+    }
 });
 
 
 
 
 
+$(document).ready(function() {
+    // Écouteur d'événements pour ouvrir le modal et fermer un autre
+    $(document).on('click', '#traiterButton2', function(event) {
+        event.preventDefault();
+        $('#ticketDetailsModalwee').hide();
+        $('#ticketTraiterModalwee5').modal('show');
+    });
+
+    // Un seul événement pour les boutons #traiterButton3 et #traiterButton4
+    $(document).on('click', '#traiterButton3, #traiterButton4', function(event) {
+        event.preventDefault(); // Empêcher l'action par défaut du bouton
+
+        var TicketId = document.getElementById('TicketId').value;
+        var user_id = document.getElementById('user_id').value;
+        var statutId = $(this).attr('id') === 'traiterButton3' ? 3 : 2; // Statut différent selon le bouton
 
 
+        // Récupérer les articles dynamiques
+        var articles = [];
+        $('#articlesContainer .d-flex').each(function() {
+            var articleId = $(this).find('select[name^="articles"][name$="[ArtId]"]').val();
+            var quantity = $(this).find('input[name^="articles"][name$="[quantity]"]').val();
+            if (articleId && quantity) {
+                articles.push({ ArtId: articleId, quantity: quantity });
+            }
+        });
 
+        // Récupérer le commentaire
+        var Description = $('#Description').val();
+        var PanneReelsTypePanneId = document.getElementById('typePanne').value;
+        console.log("PanneReelsTypePanneId", PanneReelsTypePanneId);
+
+        // Créer un objet formData avec toutes les informations nécessaires
+        var formData = {
+            TicketId: TicketId,
+            user_id: user_id,
+            InterventionStatutId: statutId,
+            PanneReelsTypePanneId: PanneReelsTypePanneId,
+            articles: articles,
+            Description: Description // Ajout du commentaire ici
+        };
+        console.log(formData);
+
+        // Envoi des données via AJAX
+        $.ajax({
+            url: tickettraiterstoreUrl, // URL du contrôleur Laravel
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(response) {
+                alert('Intervention traitée avec succès !');
+                $('#ticketTraiterModalwee5').modal('hide');
+            },
+            error: function(response) {
+                if (response.status === 422) { // Code 422 pour les erreurs de validation
+                    var errors = response.responseJSON.errors;
+                    if (errors) {
+                        $.each(errors, function(key, value) {
+                            alert(value); // Affiche chaque erreur de validation
+                        });
+                    }
+                } else {
+                    alert('Une erreur est survenue lors du traitement.');
+                }
+            }
+        });
+
+    });
+
+    // Suppression d'un article de la liste dynamique
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-article')) {
+            e.target.closest('.d-flex').remove();
+        }
+    });
+
+
+    // Gestion de la soumission du formulaire d'intervention
+    $('#addInterventionForm').on('submit', function(e) {
+        e.preventDefault(); // Empêche la soumission classique du formulaire
+
+        // Récupérer les données du formulaire
+        var formData = $(this).serialize();
+
+        // Envoi des données via AJAX (si nécessaire)
+        $.ajax({
+            url: $(this).attr('action'), // URL du formulaire
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                alert('Formulaire soumis avec succès');
+                $('#ticketTraiterModalwee5').modal('hide');
+            },
+            error: function(response) {
+                // Gérer les erreurs ici
+                console.error('Erreur lors de la soumission du formulaire.');
+            }
+        });
+    });
+});
 
 
 setupConfirmation('#deleteUsercentreModal', {
@@ -581,11 +710,8 @@ setupConfirmation('#deleteUsercentreModal', {
     cancelButtonText: 'Annuler',
     successTitle: 'Supprimé!',
     successText: 'Le lien a été supprimé.'
-}, function() {
+}, function () {
 }, userCentredeleteUrlBase, indexUserCentresUrl, 'DELETE');
-
-
-
 setupConfirmation(
     '#deleteLienUserService',
     {
@@ -597,7 +723,7 @@ setupConfirmation(
         successTitle: 'Supprimé!',
         successText: 'Le lien a été supprimé.'
     },
-    function() {
+    function () {
     }, userservicedeleteUrlBase, indexUserServicesUrl, 'DELETE'
 );
 setupConfirmation('#deletelienRolePermission', {
@@ -608,8 +734,8 @@ setupConfirmation('#deletelienRolePermission', {
     cancelButtonText: 'Annuler',
     successTitle: 'Supprimé!',
     successText: 'Le lien a été supprimé.'
-}, function() {
-},rolepermissiondeleteUrlBase, IndexRolePermissionUrl,'DELETE');
+}, function () {
+}, rolepermissiondeleteUrlBase, IndexRolePermissionUrl, 'DELETE');
 
 setupConfirmation('#deleteUserModal', {
     title: 'Êtes-vous sûr de vouloir supprimer cet utilisateur?',
@@ -619,11 +745,11 @@ setupConfirmation('#deleteUserModal', {
     cancelButtonText: 'Annuler',
     successTitle: 'Supprimé!',
     successText: 'L\'utilisateur a été supprimé.'
-}, function() {
+}, function () {
     var userId = $('#deleteUserModal').data('id');
     console.log('Utilisateur supprimé avec ID:', userId);
 
-},deleteUrlBase, indexUserUrl,'PUT');
+}, deleteUrlBase, indexUserUrl, 'PUT');
 
 setupConfirmation('#deleteRoleModal', {
     title: 'Êtes-vous sûr de vouloir supprimer ce rôle?',
@@ -633,11 +759,11 @@ setupConfirmation('#deleteRoleModal', {
     cancelButtonText: 'Annuler',
     successTitle: 'Supprimé!',
     successText: 'Le rôle a été supprimé.'
-}, function() {
+}, function () {
     var roleId = $('#deleteRoleModal').data('id');
     console.log('rôle supprimé avec ID:', roleId);
 
-},roledeleteUrlBase, indexRolesUrl,'PUT');
+}, roledeleteUrlBase, indexRolesUrl, 'PUT');
 
 
 setupConfirmation('#deletePermissionModal', {
@@ -648,11 +774,11 @@ setupConfirmation('#deletePermissionModal', {
     cancelButtonText: 'Annuler',
     successTitle: 'Supprimé!',
     successText: 'La permission a été supprimé.'
-}, function() {
+}, function () {
     var roleId = $('#deletePermissionModal').data('id');
     console.log('permission supprimé avec ID:', roleId);
 
-},permissiondeleteUrlBase, IndexPermissionsUrl,'PUT');
+}, permissiondeleteUrlBase, IndexPermissionsUrl, 'PUT');
 
 
 setupConfirmation('#deleteServiceModal', {
@@ -663,17 +789,11 @@ setupConfirmation('#deleteServiceModal', {
     cancelButtonText: 'Annuler',
     successTitle: 'Supprimé!',
     successText: 'Le service a été supprimé.'
-}, function() {
+}, function () {
     var serviceId = $('#deleteServiceModal').data('id');
     console.log('service supprimé avec ID:', serviceId);
 
-},servicedeleteUrlBase, indexServicesUrl,'DELETE');
-
-
-
-
-
-
+}, servicedeleteUrlBase, indexServicesUrl, 'DELETE');
 
 
 function ajaxFormSubmit(formId, url, url_, method = 'POST') {
@@ -681,7 +801,7 @@ function ajaxFormSubmit(formId, url, url_, method = 'POST') {
     let csrfToken = $('meta[name="csrf-token"]').attr('content');
 
     // Assurez-vous que l'événement submit n'est attaché qu'une seule fois
-    $form.off('submit').on('submit', function(e) {
+    $form.off('submit').on('submit', function (e) {
         e.preventDefault();
         $('span.text-danger').html('');
         let formData = $form.serialize() + `&_token=${csrfToken}`;
@@ -692,31 +812,32 @@ function ajaxFormSubmit(formId, url, url_, method = 'POST') {
             url: url,
             type: method,
             data: formData,
-            success: function(response) {
-                reloadTable(url_, function() {
+            success: function (response) {
+                reloadTable(url_, function () {
                     toastr.success(response.message, 'Succès');
                 });
                 $form[0].reset();
                 $('.modal').modal('hide');
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 if (xhr.status === 422) {
                     let errors = xhr.responseJSON.errors;
-                    $.each(errors, function(key, value) {
+                    $.each(errors, function (key, value) {
                         $('#error-' + key).html(value[0]);
                     });
                 } else {
                     toastr.error('Une erreur est survenue. Veuillez réessayer plus tard.');
                 }
             },
-            complete: function() {
+            complete: function () {
                 submitButton.prop('disabled', false).text('Envoyer');
             }
         });
     });
 }
+
 function setupConfirmation(selector, options, onConfirm, url, url_, type) {
-    $(document).on('click', selector, function(event) {
+    $(document).on('click', selector, function (event) {
         event.preventDefault();
         var $this = $(this);
         var userId = $this.data('id');
@@ -745,32 +866,32 @@ function setupConfirmation(selector, options, onConfirm, url, url_, type) {
 }
 
 function ajaxRequest(userId, url, url_, type) {
-        var deleteUrl = url.replace('ID', userId);
-        $.ajax({
-            url: deleteUrl,
-            type: type,
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                reloadTable(url_, function() {
-                    let swalOptions = localStorage.getItem('swalOptions');
-                    if (swalOptions) {
-                        swalOptions = JSON.parse(swalOptions);
-                        Swal.fire(swalOptions.title, swalOptions.text, swalOptions.icon);
-                        localStorage.removeItem('swalOptions');
-                    }
-                });
-            },
-            error: function(xhr) {
-                console.error('Une erreur est survenue lors de l\'exécution de l\'action.');
-                Swal.fire(
-                    'Erreur!',
-                    'Une erreur est survenue. Veuillez réessayer plus tard.',
-                    'error'
-                );
-            }
-        });
+    var deleteUrl = url.replace('ID', userId);
+    $.ajax({
+        url: deleteUrl,
+        type: type,
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            reloadTable(url_, function () {
+                let swalOptions = localStorage.getItem('swalOptions');
+                if (swalOptions) {
+                    swalOptions = JSON.parse(swalOptions);
+                    Swal.fire(swalOptions.title, swalOptions.text, swalOptions.icon);
+                    localStorage.removeItem('swalOptions');
+                }
+            });
+        },
+        error: function (xhr) {
+            console.error('Une erreur est survenue lors de l\'exécution de l\'action.');
+            Swal.fire(
+                'Erreur!',
+                'Une erreur est survenue. Veuillez réessayer plus tard.',
+                'error'
+            );
+        }
+    });
 
 };
 
@@ -780,10 +901,10 @@ function reloadTable_(url_) {
         url: url_,
         type: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
             $('#body').html(data);
         },
-        error: function(xhr) {
+        error: function (xhr) {
             console.error('Une erreur est survenue lors du chargement du tableau.');
         }
     });
@@ -795,13 +916,13 @@ function reloadTable(url_, callback) {
         url: url_,
         type: 'GET',
         dataType: 'html',
-        success: function(data) {
+        success: function (data) {
             $('#body').html(data);
             if (typeof callback === 'function') {
                 callback();
             }
         },
-        error: function(xhr) {
+        error: function (xhr) {
             console.error('Une erreur est survenue lors du chargement du tableau.');
         }
     });

@@ -35,7 +35,7 @@
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
                                     <th>
-                                        <a href="#" id="ticketDetailsModal" class="view" data-id="{{ $ticket->id }}">
+                                        <a href="#" id="ticketDetailsModal" class="view" data-id="{{ $ticket->id }}" data-user="{{auth()->user()->id}}">
                                             <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
                                         </a>
                                     </th>

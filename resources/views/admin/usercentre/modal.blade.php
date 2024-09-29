@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="associerCentreModalTitleLabel">Associer Utilisateur et Centres de Distribution</h5>
+                <h5 class="modal-title" id="associerCentreModalTitleLabel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button id="dismissUserCentre" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button id="savebutton" type="submit" class="btn btn-primary">Enregistrer</button>
                 </div>
             </form>

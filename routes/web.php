@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\intervention\InterventionController;
 use App\Http\Controllers\TicketController\AttenteClientController;
 use App\Http\Controllers\TicketController\CloturerTicketController;
 use App\Http\Controllers\TicketController\InterTermController;
@@ -16,7 +17,6 @@ use App\Http\Controllers\UserController\RoleController;
 use App\Http\Controllers\UserController\UserController;
 use App\Http\Controllers\UserController\RolePermissionController;
 use App\Http\Controllers\UserController\ServiceController;
-use App\Http\Controllers\UserController\InterventionController;
 
 
 
@@ -32,12 +32,15 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.inde
 ##AGENT##
 Route::prefix('agent')->group(function () {
     Route::resource('ticketcloturer', CloturerTicketController::class);
+    Route::resource('modalTraiter', InterventionController::class);
     Route::resource('traiterticket', TraiterTicketController::class);
     Route::resource('ticketouvert', TicketOuvertController::class);
     Route::resource('ticketterminer', InterTermController::class);
     Route::resource('attenteclient', AttenteClientController::class);
-    Route::get('traiterticket/{id}', [TraiterTicketController::class, 'show'])->name('traiterticket.show');
+    // Route pour enregistrer les interventions
+    Route::post('/agent/modalTraiter', [InterventionController::class, 'modalTraiter'])->name('intervention.store');
 
+    Route::get('traiterticket/{id}', [TraiterTicketController::class, 'show'])->name('traiterticket.show');
 })->middleware(['isAdmin','isAgent','isChef','isSuperviseur']);
 
 
@@ -73,7 +76,6 @@ Route::prefix('administrateur')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('rolelier', RolePermissionController::class);
-
 })->middleware('isAdmin');
 
 

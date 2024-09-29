@@ -26,9 +26,10 @@ class Article extends Model
     // Indiquer la clé primaire si ce n'est pas 'id'
     protected $primaryKey = 'ArtId';
 
-    // Relation avec Intervention (plusieurs articles peuvent être associés à plusieurs interventions)
     public function interventions()
     {
         return $this->belongsToMany(Intervention::class, 'ArticleIntervention', 'ArtId', 'InterventionId');
     }
 }
+
+

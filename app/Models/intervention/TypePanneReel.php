@@ -25,8 +25,8 @@ class TypePanneReel extends Model
     protected $primaryKey = 'TypePanneId';
 
     // Relation avec Intervention
-    public function interventions()
-    {
-        return $this->hasMany(Intervention::class, 'PanneReelsTypePanneId', 'TypePanneId');
+    public function panne(){
+        return $this->belongsTo(Intervention::class, 'TypePanneId');
     }
+
 }
