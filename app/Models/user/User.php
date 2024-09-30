@@ -84,6 +84,7 @@ class User extends Authenticatable  implements JWTSubject
     {
         return $this->belongsToMany(CentreDistrib::class, 'centre_user', 'user_id', 'centre_distrib_id')->withPivot('id');
     }
+    
 
     public function getJWTIdentifier()
     {

@@ -27,20 +27,47 @@ class AuthController extends Controller implements HasMiddleware
 
     public function dashboard(): View|Factory|Application
     {
+        $user = auth()->user();
+        $utilisateurs = $user->role->pluck('id');
 
-        $users = User::with('roles')->where('deleted', false)->paginate(10);
-        $roles = Role::with('permissions')->has('permissions')->get();
+        if($user->role_id == 4) {
+            $users = User::with('roles')->where('deleted', false)->paginate(10);
+            $roles = Role::with('permissions')->has('permissions')->get();
+        }else{
+            $users = User::with('roles')->where('deleted', false)->paginate(10);
+            $roles = Role::with('permissions')->whereHas('permissions')->where('id', '!=', 4)
+            ->get();
+
+        }
+
         return view('admin.index', compact('users', 'roles'));
     }
 
 
     public function users(): View|Factory|Application
-    {
+{
+    $user = auth()->user();
 
-        $users = User::with('roles')->where('deleted', false)->paginate(10);
-        $roles = Role::with('permissions')->has('permissions')->get();
-        return view('users.listUser', compact('users', 'roles'));
+    if ($user->role && strtolower($user->role->name) === 'chef') {
+        // Si c'est un chef, filtrer uniquement les agents et superviseurs
+        $roles = Role::whereIn('name', ['agent', 'superviseur'])->get();
+        $users = User::whereIn('role_id', $roles->pluck('id'))
+            ->where('deleted', false)
+            ->paginate(10);
+    } elseif ($user->role && strtolower($user->role->name) === 'administrateur') {
+        // Si c'est un administrateur, afficher tous les utilisateurs
+        $users = User::where('deleted', false)
+            ->paginate(10);
+        $roles = Role::all(); // Ajouter cette ligne pour récupérer tous les rôles
+    } else {
+        // Pour tout autre rôle
+        return redirect()->route('home')->with('error', 'Accès refusé');
     }
+
+    return view('users.listUser', compact('users', 'roles'));
+}
+
+
 
 
 

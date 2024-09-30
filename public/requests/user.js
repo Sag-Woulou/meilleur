@@ -651,6 +651,15 @@ $(document).ready(function() {
         $('#ticketDetailsModalwee').hide();
         $('#ticketTraiterModalwee5').modal('show');
     });
+    var currentUrl = window.location.href;
+    // Vérifier si l'URL actuelle est la même que indexAttenteclientUrl
+    if (currentUrl === indexAttenteclientUrl) {
+        // Masquer le bouton traiterButton3
+        $('#traiterButton3').hide();
+    } else {
+        // Sinon, s'assurer que le bouton est affiché
+        $('#traiterButton3').show();
+    }
 
     // Un seul événement pour les boutons #traiterButton3 et #traiterButton4
     $(document).on('click', '#traiterButton3, #traiterButton4', function(event) {

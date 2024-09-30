@@ -51,7 +51,14 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->other_user_details }}</td>
-                                <td>{{ $roles->firstWhere('id', $user->role_id)->name }}</td>
+                                <td>
+                                    @if($role = $roles->firstWhere('id', $user->role_id))
+                                        {{ $role->name }}
+                                    @else
+                                        Aucun rôle
+                                    @endif
+                                </td>
+
 
                                 <th class="action-buttons">
                                     <a href="#" id="userModal" class="view" data-toggle="modal" data-type="3"

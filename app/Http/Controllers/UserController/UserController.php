@@ -26,8 +26,27 @@ class UserController extends Controller
 {
     public function index(): View|Factory|Application
     {
-        $users = User::with('roles')->where('deleted', false)->paginate(10);
-        $roles = Role::with('permissions')->has('permissions')->get();
+
+        $user = auth()->user();
+
+        // Liste des rôles interdits selon le rôle de l'utilisateur connecté
+        if ($user->role_id == 4) { // Administrateur
+            $users = User::with('roles')->where('deleted', false)->paginate(10);
+            $roles = Role::with('permissions')->has('permissions')->get(); // Administrateur voit tout
+        } elseif ($user->role_id == 3) { // Chef
+            $users = User::with('roles')->where('deleted', false)->paginate(10);
+            $roles = Role::with('permissions')
+                ->whereHas('permissions')
+                ->whereNotIn('id', [3, 4]) // Exclure les rôles 'chef' et 'administrateur'
+                ->get();
+        } else {
+            // Pour les autres utilisateurs, exclusion des rôles supérieurs
+            $users = User::with('roles')->where('deleted', false)->paginate(10);
+            $roles = Role::with('permissions')
+                ->whereHas('permissions')
+                ->where('id', '!=', 4) // Exclure le rôle d'administrateur
+                ->get();
+        }
         return view('admin.index', compact('users', 'roles'));
     }
 

@@ -1,5 +1,4 @@
 @extends('adminbase.dashboard')
-
 @section('tableview')
     <div class="main-content">
         <div class="row">
@@ -8,7 +7,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Liste des Tickets en Attente du Client</h2>
+                                <h2 class="ml-lg-2">Liste des Tickets à traiter</h2>
                             </div>
                         </div>
                     </div>
@@ -23,20 +22,24 @@
                                 <th>Numéro d'Appelant</th>
                                 <th>Type de Panne</th>
                                 <th>Niveau d'Urgence</th>
-                                <th>Dernier Statut</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($matchingTickets as $ticket)
                                 <tr>
-                                    <td>{{ $ticket->TicketId }}</td>
-                                    <td>{{ $ticket->CreationDatetime }}</td>
-                                    <td>{{ e($ticket->NumeroCompteur) }}</td> <!-- Affiche les numéros de compteur échappés -->
+                                    <td>{{ $ticket->id }}</td>
+                                    <td>{{ explode('.', $ticket->CreationDatetime)[0] }}</td>
+                                    <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
                                     <td>{{ $ticket->NumeroAppelant }}</td>
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
-                                    <td>{{ $ticket->statutTicket }}</td>
-                                </tr>
+                                    <th>
+                                        <a href="#" id="ticketDetailsModal" class="view" data-id="{{ $ticket->id }}" data-user="{{auth()->user()->id}}">
+                                            <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
+                                        </a>
+                                    </th>
+
                             @endforeach
                             </tbody>
                         </table>
@@ -50,6 +53,9 @@
         </div>
     </div>
 @endsection
-
 @section('modal')
+    @include('traiterticket.modal')
+    @include('traiterticket.modalTraiter')
 @endsection
+
+
