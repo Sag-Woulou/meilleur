@@ -7,6 +7,7 @@
 
 
 
+    <link rel="icon" type="img/png" href="{{ asset('img/Logo-site-SONABEL-def.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">

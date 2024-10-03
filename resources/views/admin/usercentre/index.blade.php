@@ -29,12 +29,12 @@
                                         <label for="selectAll"></label>
                                     </span>
                                 </th>
-                                <th>N°</th>
-                                <th>Nom d'utilisateur</th>
-                                <th>Centres de Distribution</th>
-                                <th>Exploitations de Dépannage</th>
-                                <th>Libellé Exploitations</th>
-                                <th>Actions</th>
+                                <th style="font-weight: bold">N°</th>
+                                <th style="font-weight: bold">Nom d'utilisateur</th>
+                                <th style="font-weight: bold">Centres de Distribution</th>
+                                <th style="font-weight: bold">Exploitations de Dépannage</th>
+                                <th style="font-weight: bold">Libellé Exploitations</th>
+                                <th style="font-weight: bold">Actions</th>
                             </tr>
                             </thead>
                             <tbody class="tab-content" id="tab-content">

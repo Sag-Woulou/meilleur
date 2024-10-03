@@ -29,13 +29,13 @@
                                     <input type="checkbox" id="selectAll">
                                     <label for="selectAll"></label>
                             </th>
-                            <th >N°</th>
-                            <th>Nom</th>
-                            <th>Email</th>
-                            <th>Nom d'utilisateur</th>
-                            <th>Détails</th>
-                            <th>Role</th>
-                            <th>Actions</th>
+                            <th style="font-weight: bold" >N°</th>
+                            <th style="font-weight: bold">Nom</th>
+                            <th style="font-weight: bold">Email</th>
+                            <th style="font-weight: bold">Nom d'utilisateur</th>
+                            <th style="font-weight: bold">Détails</th>
+                            <th style="font-weight: bold">Role</th>
+                            <th style="font-weight: bold">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="tab-content" id="tab-content">

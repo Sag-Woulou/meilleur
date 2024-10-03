@@ -23,7 +23,7 @@
                     <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle" style="text-decoration: none">
-                        <i class="material-icons">assignment</i> Affectations
+                        <i class="material-icons">assignment</i>Affectations
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1" style="text-decoration: none">
                         <li class="dropdown {{Route::is('usercentre.index')? 'active' : ''}}"> <a href="{{route('usercentre.index')}}" style="text-decoration: none">Zone & utilisateur</a></li>
@@ -57,7 +57,7 @@
                 <li class="dropdown">
                     <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false"
                        class="dropdown-toggle" style="text-decoration: none">
-                        <i class="material-icons" >description</i> Tickets
+                        <i class="material-icons" >description</i>Tickets
                     </a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu3" style="text-decoration: none">
 

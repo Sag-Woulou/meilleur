@@ -17,13 +17,13 @@
                         <table class="table table-responsive-xxl table-striped table-hover">
                             <thead class="table-header">
                             <tr>
-                                <th>N° du Ticket</th>
-                                <th>Date de Création</th>
-                                <th>Numéro d'Abonné</th>
-                                <th>Numéro d'Appelant</th>
-                                <th>Type de Panne</th>
-                                <th>Niveau d'Urgence</th>
-                                <th>Actions</th>
+                                <th style="width: 120px ; font-weight: bold ">N° du Ticket</th>
+                                <th style="font-weight: bold">Date de Création</th>
+                                <th style="font-weight: bold">Numéro d'Abonné</th>
+                                <th style="font-weight: bold">Numéro d'Appelant</th>
+                                <th style="font-weight: bold">Type de Panne</th>
+                                <th style="font-weight: bold">Niveau d'Urgence</th>
+                                <th style="font-weight: bold">Actions</th>
                             </tr>
                             </thead>
                             <tbody>

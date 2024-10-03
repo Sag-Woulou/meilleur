@@ -29,10 +29,10 @@
                                     <input type="checkbox" id="selectAll">
                                     <label for="selectAll"></label>
                             </th>
-                            <th >N°</th>
-                            <th>Nom</th>
-                            <th>Description</th>
-                            <th>Actions</th>
+                            <th style="font-weight: bold">N°</th>
+                            <th style="font-weight: bold">Nom</th>
+                            <th style="font-weight: bold">Description</th>
+                            <th style="font-weight: bold">Actions</th>
                         </tr>
                         </thead>
                         <tbody class="tab-content" id="tab-content">

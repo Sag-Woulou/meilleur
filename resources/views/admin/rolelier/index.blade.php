@@ -28,10 +28,10 @@
                                 <th> <span class="custom-checkbox">
                                     <input type="checkbox" id="selectAll">
                                     <label for="selectAll"></label></th>
-                                <th>N°</th>
-                                <th>Nom du Rôle</th>
-                                <th>Permissions</th>
-                                <th>Actions</th>
+                                <th style="font-weight: bold">N°</th>
+                                <th style="font-weight: bold">Nom du Rôle</th>
+                                <th style="font-weight: bold">Permissions</th>
+                                <th style="font-weight: bold">Actions</th>
                             </tr>
                             </thead>
                             <tbody class="tab-content" id="tab-content">
