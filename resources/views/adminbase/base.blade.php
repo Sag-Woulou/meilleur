@@ -70,7 +70,7 @@
 
     var indexUserCentresUrl = "{{ route('usercentre.index') }}";
     var userCentrestoreUrl = "{{ route('usercentre.store') }}";
-    var userCentreupdateUrlBase = "{{ route('usercentre.update', ['usercentre' => 'ID']) }}";
+    var userCentreupdateUrlBase  = "{{ route('usercentre.update', ['usercentre' => 'ID']) }}";
     var userCentredeleteUrlBase = "{{ route('usercentre.updateDeleted', ['user' => 'ID']) }}";
 
     var indexTransfertUrl="{{route('transferticket.index')}}";
@@ -83,7 +83,11 @@
 
 
     var ticketUrl = "{{ route('traiterticket.show', ':id') }}";
+    var ticketclotureurl ="{{route('ticketcloturer.show',':id')}}"
     var tickettraiterstoreUrl = "{{ route('modalTraiter.store') }}";
+
+
+
 
 
 </script>

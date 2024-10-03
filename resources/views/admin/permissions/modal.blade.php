@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button id="fermerpermissions" type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     <button type="submit" id="savebuton" class="btn btn-primary">Enregistrer</button>
                 </div>
             </form>

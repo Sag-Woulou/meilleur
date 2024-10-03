@@ -17,9 +17,6 @@ use MongoDB\Driver\Session;
 
 class AuthController extends Controller implements HasMiddleware
 {
-    function __construct (){
-       // $this->middleware('isAuth');
-    }
 
     public function login(){
         return view('auth.login');
@@ -44,8 +41,8 @@ class AuthController extends Controller implements HasMiddleware
     }
 
 
-    public function users(): View|Factory|Application
-{
+    public function users(): Factory|View|Application
+    {
     $user = auth()->user();
 
     if ($user->role && strtolower($user->role->name) === 'chef') {
@@ -130,4 +127,6 @@ class AuthController extends Controller implements HasMiddleware
             'expires_in' => time() + 60 * 60
         ]);
     }
+
+
 }

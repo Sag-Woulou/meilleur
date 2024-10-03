@@ -8,7 +8,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Liste des Tickets en attente de Clôture</h2>
+                                <h2 class="ml-lg-2">Tickets en attente de clôture       {{ $matchingTickets->count() }}</h2>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,8 @@
                             @foreach ($matchingTickets as $ticket)
                                 <tr>
                                     @php
-                                        $ticketNumber = str_pad($ticket->TicketId, 9, '0', STR_PAD_LEFT);
+                                        // Utilisation de 'id' au lieu de 'TicketId' car dans la requête SQL, 'TicketId' est aliasé en 'id'
+                                        $ticketNumber = str_pad($ticket->id, 9, '0', STR_PAD_LEFT);
                                         $formattedTicketNumber = substr($ticketNumber, 0, 3) . '-' . substr($ticketNumber, 3, 3) . '-' . substr($ticketNumber, 6);
                                     @endphp
                                     <td>{{ $formattedTicketNumber }}</td>

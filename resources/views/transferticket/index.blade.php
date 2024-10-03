@@ -7,7 +7,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Liste des Tickets</h2>
+                                <h2 class="ml-lg-2">Liste des Tickets   {{ $matchingTickets->count() }}</h2>
                             </div>
                         </div>
                     </div>

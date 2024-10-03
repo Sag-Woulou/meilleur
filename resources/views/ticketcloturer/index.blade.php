@@ -8,7 +8,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Liste des Tickets Clôture</h2>
+                                <h2 class="ml-lg-2">Liste des Tickets Clôture     {{ $matchingTickets->count() }}</h2>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                     <td>{{ $ticket->typePanne }}</td>
                                     <td>{{ $ticket->NiveauUrgence }}</td>
                                     <th>
-                                        <a href="#" id="ticketDetailsModal1" class="view" data-id="{{ $ticket->id }}">
+                                        <a href="#" id="ticketDetailsModal1" class="view" data-id="{{ $ticket->id }}" data-user="{{auth()->user()->id}}" >
                                             <i class="material-icons" data-toggle="tooltip" title="View">visibility</i>
                                         </a>
                                     </th>

@@ -7,7 +7,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Liste des Tickets à traiter</h2>
+                                <h2 class="ml-lg-2">Tickets en attente de la réaction du client              {{ $matchingTickets->count() }}</h2>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,11 @@
                             <tbody>
                             @foreach ($matchingTickets as $ticket)
                                 <tr>
-                                    <td>{{ $ticket->id }}</td>
+                                    @php
+                                        $ticketNumber = str_pad($ticket->id, 9, '0', STR_PAD_LEFT);
+                                    @endphp
+
+                                    <td>{{  substr($ticketNumber, 0, 3) . '-' . substr($ticketNumber, 3, 3) . '-' . substr($ticketNumber, 6) }}</td>
                                     <td>{{ explode('.', $ticket->CreationDatetime)[0] }}</td>
                                     <td>{{ $ticket->Exploitation . ' ' . $ticket->Section . ' ' . $ticket->Lot . ' ' . $ticket->Parcelle . ' ' . $ticket->Rang }}</td>
                                     <td>{{ $ticket->NumeroAppelant }}</td>

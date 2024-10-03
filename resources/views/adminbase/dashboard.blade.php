@@ -2,7 +2,7 @@
 @section('content')
     <div class="wrapper">
         <div class="body-overlay"></div>
-
+      @if(auth()->check())
         <!-- Sidebar -->
         <div id="sidebar">
             <div class="sidebar-header">
@@ -63,11 +63,11 @@
 
                         @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent") ||(strtolower(auth()->user()->role->name)==="superviseur") ||(strtolower(auth()->user()->role->name)==="chef"))
                         <li class="dropdown {{Route::is('traiterticket.index')? 'active' : ''}}"><a href="{{route('traiterticket.index')}} " style="text-decoration: none">En attente d'intervention</a></li>
-                        <li class="dropdown {{Route::is('ticketouvert.index')? 'active' : ''}}"><a href="{{route('ticketouvert.index')}} " style="text-decoration: none">En cours d'intervention</a></li>
+                        {{--<li class="dropdown {{Route::is('ticketouvert.index')? 'active' : ''}}"><a href="{{route('ticketouvert.index')}} " style="text-decoration: none">En cours d'intervention</a></li>--}}
                         <li class="dropdown {{Route::is('attenteclient.index')? 'active' : ''}}"><a href="{{route('attenteclient.index')}} " style="text-decoration: none">En attente du client</a></li>
-                        <li class="dropdown {{Route::is('ticketterminer.index')? 'active' : ''}}"><a href="{{route('ticketterminer.index')}} " style="text-decoration: none">intervention terminer</a></li>
-                        <li class="dropdown {{Route::is('ticketcloturer.index')? 'active' : ''}}"><a href="{{route('ticketcloturer.index')}} " style="text-decoration: none">Cloturer</a></li>
-                        <li><a href="#" style="text-decoration: none">Mes ticket Traiter</a></li>
+                        <li class="dropdown {{Route::is('ticketterminer.index')? 'active' : ''}}"><a href="{{route('ticketterminer.index')}} " style="text-decoration: none">intervention terminé </a></li>
+                        <li class="dropdown {{Route::is('ticketcloturer.index')? 'active' : ''}}"><a href="{{route('ticketcloturer.index')}} " style="text-decoration: none">Cloturé</a></li>
+                        {{--<li><a href="#" style="text-decoration: none">Mes ticket Traité</a></li>--}}
                         @endif
 
                         @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="superviseur") ||(strtolower(auth()->user()->role->name)==="chef"))
@@ -91,40 +91,46 @@
                                 <span class="material-icons text-white">signal_cellular_alt</span>
                             </div>
                         </div>
-
                         <div class="col-md-5 col-lg-3 order-3 order-md-2">
                             <div class="xp-searchbar">
-                                <form>
-                                    <div class="input-group">
-                                        <input type="search" class="form-control"
-                                               placeholder="Search">
-                                        <div class="input-group-append">
-                                            <button class="btn" type="submit" id="button-addon2">Go
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                @if(request()->getRequestUri() == "/agent/ticketterminer")
+                                    <form method="GET" action="{{ route('ticketterminer.index') }}" onsubmit="return checkSearch();">
+                                        @elseif(request()->getRequestUri() == "/agent/ticketcloturer")
+                                            <form method="GET" action="{{ route('ticketcloturer.index') }}" onsubmit="return checkSearch();">
+                                                @elseif(request()->getRequestUri() == "/agent/traiterticket")
+                                                    <form method="GET" action="{{ route('traiterticket.index') }}" onsubmit="return checkSearch();">
+                                                        @elseif(request()->getRequestUri() == "/agent/attenteclient")
+                                                            <form method="GET" action="{{ route('attenteclient.index') }}" onsubmit="return checkSearch();">
+                                                                @endif
+                                                                <div class="input-group">
+                                                                    <input type="search" class="form-control" name="searchTerm" placeholder="Rechercher un ticket" value="{{ request('searchTerm') }}" id="searchTerm">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn" type="submit" id="button-addon2">Go</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                             </div>
                         </div>
+
+
+
 
                         <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
                             <div class="xp-profilebar text-right">
                                 <nav class="navbar p-0">
                                     <ul class="nav navbar-nav flex-row ml-auto">
-
-
                                         @if((strtolower(auth()->user()->role->name)==="administrateur") ||(strtolower(auth()->user()->role->name)==="agent") )
                                         <li class="dropdown nav-item active">
                                             <a class="nav-link" href="#" data-toggle="dropdown" style="text-decoration: none">
                                                 <span class="material-icons" >notifications</span>
-                                                <span class="notification">4</span>
+                                                <span class="notification">{{isset($matchingTickets)? $matchingTickets->count() :0 }}</span>
                                             </a>
-                                            <ul class="dropdown-menu">
+                                            {{--<ul class="dropdown-menu">
                                                 <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
                                                 <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
                                                 <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
                                                 <li><a href="#" style="text-decoration: none">You Have 4 New Messages</a></li>
-                                            </ul>
+                                            </ul>--}}
                                         </li>
                                         @endif
 
@@ -138,6 +144,7 @@
                                             <ul class="dropdown-menu small-menu">
                                                 <li><a style="text-decoration: none " >
                                                         <span class="material-icons" >person_outline</span>
+
                                                         {{auth()->user()->username}}
                                                        <br>{{auth()->user()->role->name}}
                                                     </a></li>
@@ -173,6 +180,7 @@
             <!-- Modals -->
             @yield('modal')
             <!-- Modals End -->
+            @endif
         </div>
         <!-- Page Content End -->
     </div>
@@ -180,3 +188,4 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 @endsection
+

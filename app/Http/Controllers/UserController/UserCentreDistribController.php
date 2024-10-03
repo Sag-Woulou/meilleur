@@ -106,14 +106,15 @@ class UserCentreDistribController extends Controller
      * @param int $userId
      * @return JsonResponse
      */
-    public function destroy(int $userId): JsonResponse
+
+    public function destroy(int $id): JsonResponse
     {
-        // Récupérer l'utilisateur par son ID
-        $user = User::findOrFail($userId);
+        $deleted = UserCentreDistrib::where('id', $id)->delete();
 
-        // Détacher tous les centres de distribution associés
-        $user->centreDistribs()->detach();
-
-        return response()->json(['message' => 'Relations supprimées avec succès.'], 200);
+        if ($deleted) {
+            return response()->json(['message' => 'Relation supprimée avec succès.'], 200);
+        } else {
+            return response()->json(['error' => 'Relation non trouvée.'], 404);
+        }
     }
 }

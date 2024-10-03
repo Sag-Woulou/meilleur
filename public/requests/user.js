@@ -86,7 +86,6 @@ $(document).on('click', '#traiterButton2', function (event) {
     console.log(id)
 
 })
-
 $(document).on('click', '#roleModal', function (event) {
     event.preventDefault();
     var $this = $(this);
@@ -199,7 +198,6 @@ $(document).on('click', '#relieRoleModal', function (event) {
     } else if (dataType === 0) {
         var roleId = $this.data('id');
         var permissions = $this.data('permissions');
-        console.log('permissions', permissions.id);
         var roleupdateUrl = rolepermissionupdateUrlBase.replace('ID', roleId);
         $('#relieRolePermissionModalTitleLabel').text('Modifier lien rôle-Permission (ID: ' + roleId + ')');
         $('#rolePermissionForm').attr('action', roleupdateUrl);
@@ -314,50 +312,84 @@ $(document).on('click', '#relieUserModal', function (event) {
         $('#relieUserServiceModal').modal('show');
     }
 });
-/*$(document).on('click', '#usercentreModal', function (event) {
+
+
+//centre de distribution//
+
+$(document).on('click', '#usercentreModal', function (event) {
     event.preventDefault();
     var $this = $(this);
     var dataType = $this.data('type');
-    $('#userCentreForm')[0].reset(); // Reset le formulaire
+    $('#userCentreForm')[0].reset();
     $('#user_id').prop('disabled', false);
     $('#centre_distrib_ids').prop('disabled', false);
-    $('#savebutton').show(); // Affiche le bouton enregistrer
-    $('span.text-danger').html(''); // Reset des erreurs
-
-    // Si dataType est égal à 1, on est dans le cas de création
+    $('#savebutton').show();
+    $('span.text-danger').html('');
     if (dataType === 1) {
         $('#associerCentreModalTitleLabel').text('Associer Utilisateur et Centres de Distribution');
-        $('#userCentreForm').attr('action', userCentrestoreUrl); // URL pour créer l'association
-        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour la création
-        $('#associerCentreModal').modal('show'); // Ouvre le modal
-        ajaxFormSubmit('serviceForm', userCentrestoreUrl, indexUserCentresUrl, 'POST');
-        $('#userCentreForm')[0].reset(); // Reset le formulaire après soumission
-        $('#associerCentreModal').modal('hide'); // Ferme le modal
+        $('#userCentreForm').attr('action', userCentrestoreUrl);
+        $('#userCentreForm').attr('method', 'POST');
+        $('#associerCentreModal').modal('show');
+        ajaxFormSubmit('userCentreForm', userCentrestoreUrl, indexUserCentresUrl, 'POST');
+        $('#userCentreForm')[0].reset();
+        $('#associerCentreModal').modal('hide');
     }
-    // Si dataType est égal à 0, on est dans le cas de l'édition
     else if (dataType === 0) {
         var id = $this.data('id');
         var userId = $this.data('user_id');
         var centreDistribIds = $this.data('centre_distrib_ids');
-        console.log('centreDistribIds', centreDistribIds);
 
-        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id); // Remplace ID par l'id réel
+        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id);
         $('#associerCentreModalTitleLabel').text('Modifier lien Utilisateur-Centres (ID: ' + id + ')');
-        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl); // URL pour la mise à jour
-        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour l'édition
-        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">'); // Pour que Laravel utilise PUT
-        $('#user_id').val(userId); // Remplit le champ utilisateur
-        $('#centre_distrib_ids').val(centreDistribIds); // Remplit le champ centres
+        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl);
+        $('#userCentreForm').attr('method', 'POST');
+        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">');
+        $('#user_id').val(userId);
+        $('#centre_distrib_ids').val(centreDistribIds);
         $('#associerCentreModal').modal('show'); // Ouvre le modal
 
-        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexUserCentresUrl, 'POST'); // Soumission du formulaire
+        // Soumission du formulaire via AJAX
+        ajaxFormSubmit('userCentreForm', userCentreupdateUrlBaseUrl, indexUserCentresUrl, 'POST');
+    }else if (dataType === 3) {
+        var id = $this.data('id');
+        var userId = $this.data('user_id');
+        $('#associerCentreModalTitleLabel').text('Lien centre-utilisateur (ID: ' + userId + ')');
+        $('#user_id').val(userId);
+        $('#user_id').prop('disabled', true);
+        $('#centre_distrib_ids').val(id);
+        $('#centre_distrib_ids').prop('disabled', true);
+        $('#savebuton').hide();
+        $('#associerCentreModal').modal('show');
     }
-});*/
 
+});
+
+
+setupConfirmation('#deleteUsercentreModal', {
+    title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
+    text: 'Cette action est irréversible.',
+    icon: 'warning',
+    confirmButtonText: 'Oui, supprimer!',
+    cancelButtonText: 'Annuler',
+    successTitle: 'Supprimé!',
+    successText: 'Le lien a été supprimé.'
+}, function () {
+}, userCentredeleteUrlBase, indexUserCentresUrl, 'DELETE');
+
+
+
+
+
+//fin centre de distribution
+
+
+$(document).on('click', '#fermerpermissions', function (event) {
+    event.preventDefault();
+    reloadTable_(IndexPermissionsUrl);
+});
 $(document).on('click', '#dismissUserCentre', function (event) {
     event.preventDefault();
     reloadTable_(indexUserCentresUrl);
-
 });
 $(document).on('click', '#transfertTicketModal', function (event) {
     console.log(true);
@@ -472,21 +504,28 @@ $(document).on('click', '#ticketDetailsModal', function (event) {
     var ticketId = $(this).data('id');
     showTicketDetails(ticketId);
 });
+
 $(document).on('click', '#dismissButton', function (event) {
     event.preventDefault();
     reloadTable_(indexTraiterticketUrl);
     $('#ticketDetailsModalwee').hide();
 });
 
+
 function showTicketDetails1(ticketId) {
     if (!ticketId) {
+
         console.error('ID du ticket non défini');
         return;
     }
-    resetModalContent();
 
+    resetModalContent1();
+    var ticketId = parseInt(ticketId, 10); // S'assure que ticketId est bien un entier
+    console.log(ticketclotureurl)
+    // Remplacer :id par l'ID du ticket dans l'URL générée par Laravel
+    var url = ticketclotureurl.replace(':id', ticketId);
     $.ajax({
-        url: `/traiterticket/${ticketId}`,
+        url: url,
         method: 'GET',
         dataType: 'json',
         success: function (response) {
@@ -498,16 +537,16 @@ function showTicketDetails1(ticketId) {
             $('#ticketCreationDatetime1').text(response.CreationDatetime || 'Non défini');
             $('#ticketNumeroAppelant1').text(response.NumeroAppelant || 'Non défini');
             $('#ticketRue1').text(response.Rue || 'Non défini');
-            $('#ticketQuartier').text(response.Quartier || 'Non défini');
+            $('#ticketQuartier1').text(response.Quartier || 'Non défini');
             $('#ticketIndicationPrecise1').text(response.IndicationPrecise || 'Non défini');
 
-            // Remplir les détails de l'a1bonné
+            // Remplir les détails de l'abonné
             $('#abonneNom1').text(response.NomAbonne || 'Non défini');
             $('#abonnePrenom1').text(response.PrenomAbonne || 'Non défini');
             $('#abonnePolice1').text(response.Police || 'Non défini');
             $('#abonneCle1').text(response.Cle || 'Non défini');
             $('#abonneNumeroCompteur1').text(response.NumeroCompteur || 'Non défini');
-            $('#abonneTypeCompteur1').text(response.TypeCompteur || 'Non défini');
+            $('#abonneTypeCompteur11').text(response.TypeCompteur || 'Non défini');
             $('#abonneEtatClient1').text(response.EtatClient || 'Non défini');
             $('#abonneDateEtat1').text(response.DateEtat || 'Non défini');
             $('#abonneQuartier1').text(response.QuartierAbonne || 'Non défini');
@@ -529,7 +568,7 @@ function showTicketDetails1(ticketId) {
         },
         error: function (xhr, status, error) {
             console.error('Erreur lors de la récupération des détails du ticket :', xhr.responseText);
-            $('#ticketError').html(`
+            $('#ticketError1').html(`
                 <div class="alert alert-danger" role="alert">
                     Impossible de charger les détails du ticket. Veuillez réessayer.
                 </div>
@@ -544,7 +583,6 @@ function resetModalContent1() {
     $('#ticketNumeroAppelant1').text('');
     $('#indicationPrecise1').text('');
     $('#quartier1').text('');
-
     $('#abonneNom1').text('');
     $('#abonnePrenom1').text('');
     $('#police1').text('');
@@ -553,22 +591,38 @@ function resetModalContent1() {
     $('#dateEtat1').text('');
     $('#quartierAbonne1').text('');
     $('#telAbonne1').text('');
-
     $('#commentaireDetails1').html('');
 }
 
+
 $(document).on('click', '#ticketDetailsModal1', function (event) {
     event.preventDefault();
-
     $('#ticketDetailsModalwee12').modal('show');
     var ticketId = $(this).data('id');
     showTicketDetails1(ticketId);
-    reloadTable_(indexTraiterticketUrl);
 });
-$(document).on('click', '#dismissButton1', function (event) {
+
+
+
+
+
+
+
+
+$(document).on('click', '#supprimerlienservice', function (event) {
+    event.preventDefault();
+    reloadTable_(indexUserServicesUrl);
+});
+
+$(document).on('click', '#fermerrole', function (event) {
+    event.preventDefault();
+    reloadTable_(indexRolesUrl);
+});
+
+
+$(document).on('click', '#dismissButtoncloturer', function (event) {
     event.preventDefault();
     reloadTable_(indexticketcloturerUrl);
-
 });
 $(document).on('click', '#traiterButton2', function (event) {
     event.preventDefault();
@@ -598,45 +652,6 @@ document.addEventListener('click', function(e) {
 
 
 
-$(document).on('click', '#usercentreModal', function (event) {
-    event.preventDefault();
-    var $this = $(this);
-    var dataType = $this.data('type');
-    $('#userCentreForm')[0].reset(); // Reset le formulaire
-    $('#user_id').prop('disabled', false);
-    $('#centre_distrib_ids').prop('disabled', false);
-    $('#savebutton').show(); // Affiche le bouton enregistrer
-    $('span.text-danger').html(''); // Reset des erreurs
-
-    // Si dataType est égal à 1, on est dans le cas de création
-    if (dataType === 1) {
-        $('#associerCentreModalTitleLabel').text('Associer Utilisateur et Centres de Distribution');
-        $('#userCentreForm').attr('action', userCentrestoreUrl); // URL pour créer l'association
-        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour la création
-        $('#associerCentreModal').modal('show'); // Ouvre le modal
-        ajaxFormSubmit('serviceForm', userCentrestoreUrl, indexUserCentresUrl, 'POST');
-        $('#userCentreForm')[0].reset(); // Reset le formulaire après soumission
-        $('#associerCentreModal').modal('hide'); // Ferme le modal
-    }
-    // Si dataType est égal à 0, on est dans le cas de l'édition
-    else if (dataType === 0) {
-        var id = $this.data('id');
-        var userId = $this.data('user_id');
-        var centreDistribIds = $this.data('centre_distrib_ids');
-        console.log('centreDistribIds', centreDistribIds);
-
-        var userCentreupdateUrlBaseUrl = userCentreupdateUrlBase.replace('ID', id); // Remplace ID par l'id réel
-        $('#associerCentreModalTitleLabel').text('Modifier lien Utilisateur-Centres (ID: ' + id + ')');
-        $('#userCentreForm').attr('action', userCentreupdateUrlBaseUrl); // URL pour la mise à jour
-        $('#userCentreForm').attr('method', 'POST'); // Méthode POST pour l'édition
-        $('#userCentreForm').append('<input type="hidden" name="_method" value="PUT">'); // Pour que Laravel utilise PUT
-        $('#user_id').val(userId); // Remplit le champ utilisateur
-        $('#centre_distrib_ids').val(centreDistribIds); // Remplit le champ centres
-        $('#associerCentreModal').modal('show'); // Ouvre le modal
-
-    }
-});
-
 
 
 
@@ -645,7 +660,6 @@ $(document).on('click', '#usercentreModal', function (event) {
 
 
 $(document).ready(function() {
-    // Écouteur d'événements pour ouvrir le modal et fermer un autre
     $(document).on('click', '#traiterButton2', function(event) {
         event.preventDefault();
         $('#ticketDetailsModalwee').hide();
@@ -786,16 +800,7 @@ $(document).ready(function() {
 });
 
 
-setupConfirmation('#deleteUsercentreModal', {
-    title: 'Êtes-vous sûr de vouloir supprimer cette liaison?',
-    text: 'Cette action est irréversible.',
-    icon: 'warning',
-    confirmButtonText: 'Oui, supprimer!',
-    cancelButtonText: 'Annuler',
-    successTitle: 'Supprimé!',
-    successText: 'Le lien a été supprimé.'
-}, function () {
-}, userCentredeleteUrlBase, indexUserCentresUrl, 'DELETE');
+
 setupConfirmation(
     '#deleteLienUserService',
     {
@@ -846,7 +851,6 @@ setupConfirmation('#deleteRoleModal', {
 }, function () {
     var roleId = $('#deleteRoleModal').data('id');
     console.log('rôle supprimé avec ID:', roleId);
-
 }, roledeleteUrlBase, indexRolesUrl, 'PUT');
 
 
@@ -1021,4 +1025,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+
+
 
