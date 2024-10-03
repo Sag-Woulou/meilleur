@@ -93,24 +93,18 @@
                         </div>
                         <div class="col-md-5 col-lg-3 order-3 order-md-2">
                             <div class="xp-searchbar">
-                                @if(request()->getRequestUri() == "/agent/ticketterminer")
-                                    <form method="GET" action="{{ route('ticketterminer.index') }}" onsubmit="return checkSearch();">
-                                        @elseif(request()->getRequestUri() == "/agent/ticketcloturer")
-                                            <form method="GET" action="{{ route('ticketcloturer.index') }}" onsubmit="return checkSearch();">
-                                                @elseif(request()->getRequestUri() == "/agent/traiterticket")
-                                                    <form method="GET" action="{{ route('traiterticket.index') }}" onsubmit="return checkSearch();">
-                                                        @elseif(request()->getRequestUri() == "/agent/attenteclient")
-                                                            <form method="GET" action="{{ route('attenteclient.index') }}" onsubmit="return checkSearch();">
-                                                                @endif
-                                                                <div class="input-group">
-                                                                    <input type="search" class="form-control" name="searchTerm" placeholder="Rechercher un ticket" value="{{ request('searchTerm') }}" id="searchTerm">
-                                                                    <div class="input-group-append">
-                                                                        <button class="btn" type="submit" id="button-addon2">Go</button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
+                                <form id="searchForm" onsubmit="return performSearch(event);">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" name="searchTerm" placeholder="Rechercher un ticket" value="{{ request('searchTerm') }}" id="searchTerm">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon2">Go</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                        <div id="results"></div>
+
 
 
 

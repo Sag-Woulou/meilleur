@@ -24,10 +24,13 @@ class TraiterTicketController extends Controller
         $userCentres = $user->centreDistribs->pluck('CENTRE_DISTRIBUTION');
         $userRole = $user->role_id;
 
-        // Vérification si l'utilisateur n'est pas associé à un service ou un centre de distribution
-        if ($userServices->isEmpty() && $userCentres->isEmpty()) {
-            // Retourner un tableau vide si aucune association n'existe
-            return view('attenteclient.index', ['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
+
+
+        if ($userServices->isEmpty() && $userCentres->isEmpty() && $userRole == null) {
+            if ($request->ajax()) {
+                return response()->json(['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
+            }
+            return view('traiterticket.index', ['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
         }
 
         $searchTerm = $request->input('searchTerm');
@@ -111,6 +114,10 @@ class TraiterTicketController extends Controller
         $tickets = collect($tickets);
         $articles = Article::all();
         $typePannes = TypePanneReel::all();
+        if ($request->ajax()) {
+            return response()->json(['matchingTickets' => $tickets]);
+        }
+
 
         return view('traiterticket.index', ['matchingTickets' => $tickets, 'articles' => $articles, 'typePannes' => $typePannes]);
     }

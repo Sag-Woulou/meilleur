@@ -22,11 +22,17 @@ class AttenteClientController extends Controller
         $userCentres = $user->centreDistribs->pluck('CENTRE_DISTRIBUTION');
         $userRole = $user->role_id;
 
-        // Vérification si l'utilisateur n'est pas associé à un service, un centre de distribution ou un rôle
+
+
         if ($userServices->isEmpty() && $userCentres->isEmpty() && is_null($userRole)) {
             // Retourner un tableau vide si aucune association n'existe
+            if ($request->ajax()) {
+                return response()->json(['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
+            }
             return view('attenteclient.index', ['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
         }
+
+        // Vérification si l'utilisateur n'est pas associé à un service, un centre de distribution ou un rôle
 
         $searchTerm = $request->input('searchTerm');
 
@@ -86,6 +92,9 @@ class AttenteClientController extends Controller
         // Récupérer les articles et types de panne
         $articles = Article::all();
         $typePannes = TypePanneReel::all();
+        if ($request->ajax()) {
+            return response()->json(['matchingTickets' => $tickets]);
+        }
 
         return view('attenteclient.index', ['matchingTickets' => collect($tickets), 'articles' => $articles, 'typePannes' => $typePannes]);
     }

@@ -382,11 +382,11 @@ setupConfirmation('#deleteUsercentreModal', {
 
 //fin centre de distribution
 
-
-$(document).on('click', '#fermerpermissions', function (event) {
+$(document).on('click', '#fermerpermissions,#permissionFerme', function (event) {
     event.preventDefault();
     reloadTable_(IndexPermissionsUrl);
 });
+
 $(document).on('click', '#dismissUserCentre', function (event) {
     event.preventDefault();
     reloadTable_(indexUserCentresUrl);
@@ -654,8 +654,30 @@ document.addEventListener('click', function(e) {
 
 
 
+function performSearch(event) {
+    event.preventDefault(); // Empêche le formulaire de se soumettre normalement
 
+    let searchTerm = $('#searchTerm').val();
 
+    $.ajax({
+        url: '{{ route("ticketcloturer.index") }}', // Remplacez par la route appropriée selon votre logique
+        method: 'GET',
+        data: { searchTerm: searchTerm },
+        success: function(response) {
+            $('#results').empty(); // Effacer les anciens résultats
+            if (response.matchingTickets.length > 0) {
+                $.each(response.matchingTickets, function(index, ticket) {
+                    $('#results').append('<div>' + ticket.id + ': ' + ticket.NumeroAppelant + '</div>');
+                });
+            } else {
+                $('#results').append('<div>Aucun ticket trouvé.</div>');
+            }
+        },
+        error: function(xhr) {
+            console.error('Erreur lors de la recherche:', xhr);
+        }
+    });
+}
 
 
 

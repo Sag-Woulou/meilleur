@@ -22,7 +22,10 @@ class CloturerTicketController extends Controller
 
         // Vérification si l'utilisateur n'est pas associé à un service, un centre de distribution ou un rôle
         if ($userServices->isEmpty() && $userCentres->isEmpty() && $userRole == null) {
-            return view('ticketcloturer.index', ['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
+            if ($request->ajax()) {
+                return response()->json(['matchingTickets' => collect($tickets)]);
+            }
+            return view('ticketcloturer.index', ['matchingTickets' => collect($tickets)]);
         }
 
         $searchTerm = $request->input('searchTerm');
@@ -84,6 +87,9 @@ class CloturerTicketController extends Controller
 
         // Convertir le tableau en collection
         $tickets = collect($tickets);
+        if ($request->ajax()) {
+            return response()->json(['matchingTickets' => $tickets]);
+        }
 
         return view('ticketcloturer.index', ['matchingTickets' => $tickets]);
     }

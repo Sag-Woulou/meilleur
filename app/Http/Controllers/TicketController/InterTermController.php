@@ -16,8 +16,10 @@ class InterTermController
         $userCentres = $user->centreDistribs->pluck('CENTRE_DISTRIBUTION');
         $userRole = $user->role_id;
 
-        // Vérification des services, centres et rôle de l'utilisateur
-        if ($userServices->isEmpty() && $userCentres->isEmpty() && is_null($userRole)) {
+        if ($userServices->isEmpty() && $userCentres->isEmpty() && $userRole == null) {
+            if ($request->ajax()) {
+                return response()->json(['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
+            }
             return view('ticketterminer.index', ['matchingTickets' => collect($tickets), 'articles' => [], 'typePannes' => []]);
         }
 
@@ -86,6 +88,9 @@ class InterTermController
 
         // Convertir le tableau en collection pour l'affichage
         $tickets = collect($tickets);
+        if ($request->ajax()) {
+            return response()->json(['matchingTickets' => $tickets]);
+        }
 
         return view('ticketterminer.index', ['matchingTickets' => $tickets]);
     }
