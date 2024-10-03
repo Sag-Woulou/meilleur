@@ -12,7 +12,7 @@
 
 
                 <li class="dropdown {{Route::is('admin.index')? 'active' : ''}}" style="text-decoration: none">
-                    <a href="{{route('admin.index')}}" class="dashboard" style="text-decoration: none"><i class="material-icons">dashboard</i>Dashboard </a>
+                    <a href="{{route('admin.index')}}" class="dashboard" style="text-decoration: none"><i class="material-icons">dashboard</i>Tableau de bord </a>
                 </li>
 
                 @if((strtolower(auth()->user()->role->name)==="administrateur") || (strtolower(auth()->user()->role->name)==="chef") )
@@ -97,7 +97,7 @@
                                     <div class="input-group">
                                         <input type="search" class="form-control" name="searchTerm" placeholder="Rechercher un ticket" value="{{ request('searchTerm') }}" id="searchTerm">
                                         <div class="input-group-append">
-                                            <button class="btn" type="submit" id="button-addon2">Go</button>
+                                            <button class="btn" type="submit" id="button-addon2">Recherche</button>
                                         </div>
                                     </div>
                                 </form>

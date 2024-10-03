@@ -16,7 +16,7 @@
                         <table class="table table-responsive-xxl table-striped table-hover">
                             <thead class="table-header">
                             <tr>
-                                <th>N du Ticket</th>
+                                <th>N° du Ticket</th>
                                 <th>Date de Création</th>
                                 <th>Numéro d'Abonné</th>
                                 <th>Numéro d'Appelant</th>

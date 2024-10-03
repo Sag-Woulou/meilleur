@@ -8,7 +8,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Gérer les Rôles et Permissions</h2>
+                                <h2 class="ml-lg-2">Gestion des Rôles et Permissions</h2>
                             </div>
                             <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
                                 <a href="#" id="relieRoleModal" class="btn btn-success" data-toggle="modal"
@@ -28,7 +28,7 @@
                                 <th> <span class="custom-checkbox">
                                     <input type="checkbox" id="selectAll">
                                     <label for="selectAll"></label></th>
-                                <th>ID</th>
+                                <th>N°</th>
                                 <th>Nom du Rôle</th>
                                 <th>Permissions</th>
                                 <th>Actions</th>

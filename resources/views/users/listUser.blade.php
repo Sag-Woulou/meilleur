@@ -7,7 +7,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Manage Users</h2>
+                                <h2 class="ml-lg-2">Gestion des utilisateurs</h2>
                             </div>
                             <div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
                                 <a href="#" id="userModal" class="btn btn-success" data-toggle="modal" data-type="1">
@@ -29,11 +29,11 @@
                                     <input type="checkbox" id="selectAll">
                                     <label for="selectAll"></label>
                             </th>
-                            <th >ID</th>
-                            <th>Name</th>
+                            <th >N°</th>
+                            <th>Nom</th>
                             <th>Email</th>
-                            <th>Username</th>
-                            <th>Details</th>
+                            <th>Nom d'utilisateur</th>
+                            <th>Détails</th>
                             <th>Role</th>
                             <th>Actions</th>
                         </tr>
